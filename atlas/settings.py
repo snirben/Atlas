@@ -70,6 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'atlas.wsgi.application'
 
+AUTH_USER_MODEL = 'atlasapp.User'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
