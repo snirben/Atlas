@@ -16,6 +16,9 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Alef:wght@700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
+    <link href="{% static '/CSS/style.css' %}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
     <title>דף הבית</title>
 
 
@@ -41,6 +44,29 @@
     </div>
 
 </nav>
+
+    {% endif %}
+
+{%  if user.role == 2 %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img src="{% static '/images/online-class.svg' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+    אטלס
+  </a>
+    <ul class="navbar-nav mr-auto ">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">התנתקות<span class="sr-only"></span></a>
+      </li>
+    </ul>
+</nav>
+
+    <div>
+        <h1 class="welcome">
+           שלום,
+            {{user.name}} {{user.lastname}}
+        </h1>
+    </div>
     {% endif %}
 </body>
 </html>
