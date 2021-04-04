@@ -14,6 +14,7 @@ urlpatterns = [
     path(r'^deleteuser/(?P<part_id>[0-9]+)/$', views.delete_user, name='delete_user'),
     path(r'^(?P<id>\d+)/edit/$', views.edituser, name='edituser'),
     path('sAddUser/', views.createUser, name="createUser"),
-    path('bidudim/', views.bidudim, name="bidudim")
+    path('bidudim/', views.bidudim, name="bidudim"),
+    path('gManageUsers/', views.gManageUsers, name="gManageUsers")
 
 ]

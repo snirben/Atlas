@@ -96,3 +96,8 @@ def bidudim(request):
     gans = Gan.objects.all()
     context = {'gans': gans}
     return render(request, 'atlasapp/bidudim.html', context)
+
+def gManageUsers(request):
+    users = User.objects.all()
+    context = {'users':users}
+    return render(request, 'atlasapp/gManageUsers.html', context)
