@@ -1,0 +1,55 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+    <title>הוספת משתמש</title>
+    <div class="container">
+        <h2 class="headers">הוספת משתמש</h2>
+        <br><br><br><br>
+        <form class="formClass form-group" action="" method="POST" >
+            {% csrf_token %}
+            <div class="mb-3">
+                <label>תפקיד</label>
+                {{form.role}}
+            </div>
+            <div class="mb-3">
+                <label>שם משתמש</label>
+                {{form.username}}
+            </div>
+            <div class="mb-3">
+                <label>סיסמה</label>
+                {{form.password}}
+            </div>
+            <div class="mb-3">
+                <label>שם פרטי</label>
+                {{form.name}}
+            </div>
+            <div class="mb-3">
+                <label>שם משפחה</label>
+                {{form.lastname}}
+            </div>
+            <div class="mb-3">
+                <label>שם הגן</label>
+                {{form.gan}}
+            </div>
+            <div class="mb-3">
+                <label>נייד</label>
+                {{form.phone}}
+            </div>
+            <div class="mb-3">
+                <label>כתובת מייל</label>
+                {{form.email}}
+            </div>
+            <div class="mb-3">
+                <label>האם מבודד</label>
+                {{form.mevodad}}
+            </div>
+            <div class="mb-3">
+                <label>האם חולה</label>
+                {{form.covid}}
+            </div>
+            <button type="submit" class="btn btn-primary">הוסף</button>
+        </form>
+    </div>
+</body>
+</html>
+    {% endblock %}
