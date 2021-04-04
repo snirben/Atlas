@@ -1,0 +1,49 @@
+
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+
+<title>ניהול משימות</title>
+
+<div class="container">
+  <h2 class ="title" >ניהול משימות</h2>
+
+
+
+</div>
+
+<div class="container">
+    <table class="table table-center">
+
+        <tr class="table-info" >
+          <th  scope="col">המשימה</th>
+          <th  scope="col">בוצע/לא בוצע</th>
+          <th  scope="col">שם הגן</th>
+          <th></th>
+        </tr>
+        {% for item in missions%}
+                <tr>
+                    <td>
+                        {{item.text}}
+                    </td>
+                    <td>
+                        {% if item.done%} בוצע
+                        {% else %}לא בוצע
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{item.gannet.name}}
+                    </td>
+
+                </tr>
+            {% endfor %}
+    </table>
+</div>
+
+
+
+
+
+</body>
+</html>
+{% endblock %}
