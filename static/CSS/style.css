@@ -4,3 +4,24 @@
    padding-top: 20px;
    font-family: 'Rubik', sans-serif;
 }
+
+.headers {
+   padding-right: 30px;
+   padding-top: 20px;
+   float: right;
+   font-family: 'Rubik', sans-serif;
+}
+
+.btn-adduser {
+   padding-left: 20px;
+   padding-top: 30px;
+   float: left;
+}
+
+.icons {
+ color: #bbbbbb;
+}
+
+.formClass {
+   float: right;
+}

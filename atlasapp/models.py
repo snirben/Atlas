@@ -20,7 +20,7 @@ class User(AbstractUser):
     lastname = models.CharField(max_length=50,null=False)
     phone = models.CharField(max_length=50,null=False)
     email = models.CharField(max_length=50,null=False)
-    gan = models.ForeignKey(Gan,on_delete=models.CASCADE, null=True)
+    gan = models.ForeignKey(Gan,on_delete=models.CASCADE, null=True, blank=True)
     
 
 class Mission(models.Model):
