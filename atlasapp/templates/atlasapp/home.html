@@ -19,6 +19,7 @@
     <link href="{% static '/CSS/style.css' %}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <title>דף הבית</title>
 
 
@@ -72,13 +73,14 @@
         </li>
     </ul>
 </nav>
-<div>
-    <h1 class="welcome">
-        שלום,
-        {{ user.name }} {{ user.lastname }}
-    </h1>
-</div>
-
+<!--<div>-->
+<!--    <h1 class="welcome">-->
+<!--        שלום,-->
+<!--        {{ user.name }} {{ user.lastname }}-->
+<!--    </h1>-->
+<!--</div>-->
+{% block content %}
+{% endblock %}
 
 </body>
 </html>
