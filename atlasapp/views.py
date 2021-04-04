@@ -1,10 +1,26 @@
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
+
+
+
+
+#edit by Tzlil
+from django.db import models
+
+from atlasapp.forms import AddMissionForm
+from atlasapp.models import Mission
+
+
+
 
 # Create your views here.
 from django.http import HttpResponse
 
+
+
+@login_required
 def home (request):
     context = {}
     return render(request, 'atlasapp/home.html', context)
@@ -27,3 +43,16 @@ def loginpage (request):
             )
     context = {}
     return render(request,'atlasapp/login.html',context)
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
+
+
+def missions_view(request):
+    missions = Mission.objects.all()
+    context = {'missions' : missions}
+    return render(request, 'atlasapp\manageMissions.html',context)
+
+
