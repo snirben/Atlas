@@ -91,3 +91,8 @@ def edituser(request, id):
     else:
         context = {'form': form}
         return render(request, 'atlasapp/sEditUser.html', context)
+
+def bidudim(request):
+    gans = Gan.objects.all()
+    context = {'gans': gans}
+    return render(request, 'atlasapp/bidudim.html', context)

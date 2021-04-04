@@ -13,5 +13,7 @@ urlpatterns = [
     path('sManageUsers/', views.sManageUsers, name="sManageUsers"),
     path(r'^delete/(?P<part_id>[0-9]+)/$', views.delete_user, name='delete_user'),
     path(r'^(?P<id>\d+)/edit/$', views.edituser, name='edituser'),
-    path('sAddUser/', views.createUser, name="createUser")
+    path('sAddUser/', views.createUser, name="createUser"),
+    path('bidudim/', views.bidudim, name="bidudim")
+
 ]
