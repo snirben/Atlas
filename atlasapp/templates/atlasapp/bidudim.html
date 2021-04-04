@@ -1,0 +1,36 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+{% load bidudim %}
+<title>דף בידודים</title>
+
+<div class="container">
+    <div>
+        <h2 class="headers">דף בידודים</h2>
+    </div>
+         <table class="table table-center">
+        <tr class="table-info">
+            <th scope="col">שם הגן</th>
+            <th scope="col">פעיל / לא פעיל</th>
+            <th scope="col">אחוז מאומתים</th>
+        </tr>
+        {% for gan in gans %}
+                <tr>
+                    <td>
+                        {{gan.name}}
+                    </td>
+                    <td>
+                        {{gan|activateornot}}
+                    </td>
+                    <td>
+                        {{gan|percentofcovid}}%
+                    </td>
+                </tr>
+            {% endfor %}
+
+    </table>
+</div>
+
+</body>
+</html>
+{% endblock %}
