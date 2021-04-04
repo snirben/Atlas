@@ -1,0 +1,69 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+<title>ניהול משתמשים</title>
+<div class="container">
+<div>
+    <h2 class="headers">הילדים בגן שלי:</h2>
+</div>
+<div>
+    <div class="btn-adduser">
+        <a class="icons" href="{% url 'create_child'%}"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
+    </div>
+
+     <table class="table table-center">
+        <tr class="table-info">
+            <th scope="col">שם פרטי</th>
+            <th scope="col">שם משפחה</th>
+            <th scope="col">שם הגן</th>
+            <th scope="col">נייד הורים</th>
+            <th scope="col">כתובת מייל הורים</th>
+            <th scope="col">האם מבודד</th>
+            <th scope="col">האם חולה</th>
+            <th></th>
+        </tr>
+        {% for item in users %}
+         {% if item.role == 2 %}
+         {% if item.gan == user.gan %}
+                <tr>
+                    <td>
+                        {{item.name}}
+                    </td>
+                    <td>
+                        {{item.lastname}}
+                    </td>
+                    <td>
+                        {{item.gan}}
+                    </td>
+                    <td>
+                        {{item.phone}}
+                    </td>
+                    <td>
+                        {{item.email}}
+                    </td>
+                    <td>
+                        {% if item.mevodad == True %}
+                            כן
+                        {% else %}
+                            לא
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if item.covid == True %}
+                            כן
+                        {% else %}
+                            לא
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a class="icons" href="{% url 'delete_child' item.id %}"><i class="fa fa-trash"></i></a> |
+                        <a class="icons" href="{% url 'edit_child' item.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+         {% endif %}
+         {% endif %}
+         {% endfor %}
+    </table>
+</div>
+</div>
+{% endblock %}
