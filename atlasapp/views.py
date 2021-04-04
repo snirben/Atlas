@@ -56,3 +56,7 @@ def missions_view(request):
     return render(request, 'atlasapp\manageMissions.html',context)
 
 
+def delete_mission(request, part_id = None):
+    obj = Mission.objects.get(id=part_id)
+    obj.delete()
+    return redirect('manageMissions')
