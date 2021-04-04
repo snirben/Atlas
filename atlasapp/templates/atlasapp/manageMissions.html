@@ -34,7 +34,9 @@
                     <td>
                         {{item.gannet.name}}
                     </td>
-
+                    <td>
+                        <a class="icons" href="{% url 'delete_mission' item.id %}"><i class="fa fa-trash" style="color:#bbbbbb"></i></a>
+                    </td>
                 </tr>
             {% endfor %}
     </table>
