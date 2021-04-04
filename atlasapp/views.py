@@ -101,3 +101,12 @@ def gManageUsers(request):
     users = User.objects.all()
     context = {'users':users}
     return render(request, 'atlasapp/gManageUsers.html', context)
+
+def create_child(request):
+    form = AddUserForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('gManageUsers')
+    else:
+        form = AddUserForm()
+    return render(request, 'atlasapp/gAddUser.html', {'form': form})

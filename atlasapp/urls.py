@@ -15,6 +15,7 @@ urlpatterns = [
     path(r'^(?P<id>\d+)/edit/$', views.edituser, name='edituser'),
     path('sAddUser/', views.createUser, name="createUser"),
     path('bidudim/', views.bidudim, name="bidudim"),
-    path('gManageUsers/', views.gManageUsers, name="gManageUsers")
+    path('gManageUsers/', views.gManageUsers, name="gManageUsers"),
+    path('gAddUser/', views.create_child, name="create_child"),
 
 ]
