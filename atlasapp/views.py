@@ -101,3 +101,19 @@ def gManageUsers(request):
     users = User.objects.all()
     context = {'users':users}
     return render(request, 'atlasapp/gManageUsers.html', context)
+
+@login_required
+def edit_child(request, id):
+    obj = get_object_or_404(User, id=id)
+    form = AddUserForm(request.POST or None, instance=obj)
+    context = {'form': form}
+
+    if form.is_valid():
+        obj = form.save(commit=False)
+        obj.save()
+        context = {'form': form}
+        return render(request, 'atlasapp/gEditUser.html', context)
+
+    else:
+        context = {'form': form}
+        return render(request, 'atlasapp/gEditUser.html', context)
