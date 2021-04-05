@@ -43,3 +43,12 @@ class UserTestViews(TestCase):
         response.status_code
 
         self.assertEqual(response.status_code, 200)
+
+    def test_login_loads_properly(self):
+            response = self.client.get('http://127.0.0.1:8000')
+            self.assertEqual(response.status_code, 200)
+
+    def test_404_loads_properly(self):
+            response = self.client.get('http://127.0.0'
+                                       '.1:8000/nonepage')
+            self.assertEqual(response.status_code, 404)
