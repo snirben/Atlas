@@ -42,6 +42,16 @@
             <li class="nav-item active">
                 <a class="nav-link" href="#">דוחות <span class="sr-only"></span></a>
             </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'sManageUsers' %}">ניהול משתמשים <span class="sr-only"></span></a>
+            </li>
+
+             <li class="nav-item active">
+                <a class="nav-link" href="{% url 'bidudim' %}">בידודים <span class="sr-only"></span></a>
+            </li>
+
+
         </ul>
     </div>
     {% endif %}
@@ -55,7 +65,7 @@
                 <a class="nav-link" href="#">דוחות <span class="sr-only"></span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">משתמשים <span class="sr-only"></span></a>
+                <a class="nav-link" href="{% url 'gManageUsers' %}">משתמשים <span class="sr-only"></span></a>
             </li>
         </ul>
     </div>
