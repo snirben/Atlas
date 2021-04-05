@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db import models
 
-from atlasapp.forms import AddUserForm
+from atlasapp.forms import AddUserForm, AddMissionForm
 from atlasapp.models import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -52,6 +52,15 @@ def delete_mission(request, part_id = None):
     obj = Mission.objects.get(id=part_id)
     obj.delete()
     return redirect('manageMissions')
+
+def createMission(request):
+    form = AddMissionForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('manageMissions')
+    else:
+        form = AddMissionForm()
+    return render(request, 'atlasapp/addMissions.html', {'form': form})
 
 
 def sManageUsers(request):
@@ -102,18 +111,16 @@ def gManageUsers(request):
     context = {'users':users}
     return render(request, 'atlasapp/gManageUsers.html', context)
 
-@login_required
-def edit_child(request, id):
-    obj = get_object_or_404(User, id=id)
-    form = AddUserForm(request.POST or None, instance=obj)
-    context = {'form': form}
-
+def create_child(request):
+    form = AddUserForm(request.POST or None)
     if form.is_valid():
-        obj = form.save(commit=False)
-        obj.save()
-        context = {'form': form}
-        return render(request, 'atlasapp/gEditUser.html', context)
-
+        form.save()
+        return redirect('gManageUsers')
     else:
-        context = {'form': form}
-        return render(request, 'atlasapp/gEditUser.html', context)
+        form = AddUserForm()
+    return render(request, 'atlasapp/gAddUser.html', {'form': form})
+
+def delete_child(request, part_id=None):
+    obj = User.objects.get(id=part_id)
+    obj.delete()
+    return redirect('gManageUsers')
