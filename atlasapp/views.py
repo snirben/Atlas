@@ -124,3 +124,19 @@ def delete_child(request, part_id=None):
     obj = User.objects.get(id=part_id)
     obj.delete()
     return redirect('gManageUsers')
+
+@login_required
+def edit_child(request, id):
+    obj = get_object_or_404(User, id=id)
+    form = AddUserForm(request.POST or None, instance=obj)
+    context = {'form': form}
+
+    if form.is_valid():
+        obj = form.save(commit=False)
+        obj.save()
+        context = {'form': form}
+        return render(request, 'atlasapp/gEditUser.html', context)
+
+    else:
+        context = {'form': form}
+        return render(request, 'atlasapp/gEditUser.html', context)
