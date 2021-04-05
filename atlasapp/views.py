@@ -2,22 +2,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
-
-
-
-
-#edit by Tzlil
 from django.db import models
 
-from atlasapp.forms import AddMissionForm
-from atlasapp.models import Mission
-
-
-
-
+from atlasapp.forms import AddUserForm
+from atlasapp.models import *
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 # Create your views here.
 from django.http import HttpResponse
-
 
 
 @login_required
@@ -62,11 +54,59 @@ def delete_mission(request, part_id = None):
     return redirect('manageMissions')
 
 
-def createMission(request):
-    form = AddMissionForm(request.POST or None)
+def sManageUsers(request):
+    users = User.objects.all()
+    context = {'users': users}
+    return render(request, 'atlasapp/sManageUsers.html', context)
+
+
+def delete_user(request, part_id=None):
+    obj = User.objects.get(id=part_id)
+    obj.delete()
+    return redirect('sManageUsers')
+
+
+def createUser(request):
+    form = AddUserForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect('manageMissions')
+        return redirect('sManageUsers')
     else:
-        form = AddMissionForm()
-    return render(request, 'atlasapp/addMissions.html', {'form': form})
+        form = AddUserForm()
+    return render(request, 'atlasapp/sAddUser.html', {'form': form})
+
+
+@login_required
+def edituser(request, id):
+    obj = get_object_or_404(User, id=id)
+    form = AddUserForm(request.POST or None, instance=obj)
+    context = {'form': form}
+
+    if form.is_valid():
+        obj = form.save(commit=False)
+        obj.save()
+        context = {'form': form}
+        return render(request, 'atlasapp/sEditUser.html', context)
+
+    else:
+        context = {'form': form}
+        return render(request, 'atlasapp/sEditUser.html', context)
+
+def bidudim(request):
+    gans = Gan.objects.all()
+    context = {'gans': gans}
+    return render(request, 'atlasapp/bidudim.html', context)
+
+def gManageUsers(request):
+    users = User.objects.all()
+    context = {'users':users}
+    return render(request, 'atlasapp/gManageUsers.html', context)
+
+def create_child(request):
+    form = AddUserForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('gManageUsers')
+    else:
+        form = AddUserForm()
+    return render(request, 'atlasapp/gAddUser.html', {'form': form})
