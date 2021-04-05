@@ -17,5 +17,6 @@ urlpatterns = [
     path('bidudim/', views.bidudim, name="bidudim"),
     path('gManageUsers/', views.gManageUsers, name="gManageUsers"),
     path('gAddUser/', views.create_child, name="create_child"),
+    path(r'^delete/(?P<part_id>[0-9]+)/$', views.delete_child, name='delete_child')
 
 ]

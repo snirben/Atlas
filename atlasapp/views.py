@@ -110,3 +110,8 @@ def create_child(request):
     else:
         form = AddUserForm()
     return render(request, 'atlasapp/gAddUser.html', {'form': form})
+
+def delete_child(request, part_id=None):
+    obj = User.objects.get(id=part_id)
+    obj.delete()
+    return redirect('gManageUsers')
