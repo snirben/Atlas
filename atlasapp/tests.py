@@ -27,5 +27,10 @@ class UserTestCreate(TestCase):
             covid=True,
             role=2)
 
+    def test_check_gannet_is_created(self):
+        gannet = User.objects.get(username="test_gannet_username")
+        self.assertEqual(gannet.username, "test_gannet_username")
 
-
+    def test_check_child_is_created(self):
+        child = User.objects.get(username="test_child_username")
+        self.assertEqual(child.username, "test_child_username")
