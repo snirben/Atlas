@@ -18,6 +18,7 @@ urlpatterns = [
     path('gManageUsers/', views.gManageUsers, name="gManageUsers"),
     path('gAddUser/', views.create_child, name="create_child"),
     path('addMissions/', views.createMission, name="createMission"),
-    path(r'^deletechild/(?P<part_id>[0-9]+)/$', views.delete_child, name='delete_child')
+    path(r'^deletechild/(?P<part_id>[0-9]+)/$', views.delete_child, name='delete_child'),
+    path(r'^(?P<id>\d+)/editchild/$', views.edit_child, name='edit_child'),
 
 ]
