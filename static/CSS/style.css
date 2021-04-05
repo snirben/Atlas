@@ -4,3 +4,29 @@
    padding-top: 20px;
    font-family: 'Rubik', sans-serif;
 }
+
+
+
+#plusicon{
+   resize: none;
+}
+
+.fa-plus{
+   padding-left: 11px;
+   padding-top: 40px;
+}
+
+#headers{
+   padding-right: 30px;
+   padding-top: 20px;
+   float: right;
+   font-family: 'Rubik', sans-serif;
+}
+
+.addmissionpage{
+    float: right;
+}
+
+.missionlable{
+    float: right;
+}

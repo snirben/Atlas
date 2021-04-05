@@ -60,3 +60,13 @@ def delete_mission(request, part_id = None):
     obj = Mission.objects.get(id=part_id)
     obj.delete()
     return redirect('manageMissions')
+
+
+def createMission(request):
+    form = AddMissionForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('manageMissions')
+    else:
+        form = AddMissionForm()
+    return render(request, 'atlasapp/addMissions.html', {'form': form})
