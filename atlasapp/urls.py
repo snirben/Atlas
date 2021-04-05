@@ -17,5 +17,6 @@ urlpatterns = [
     path('bidudim/', views.bidudim, name="bidudim"),
     path('gManageUsers/', views.gManageUsers, name="gManageUsers"),
     path('gAddUser/', views.create_child, name="create_child"),
+    path('addMissions/', views.createMission, name="createMission")
 
 ]
