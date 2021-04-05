@@ -1,0 +1,31 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+
+
+    <div class="container">
+        <h2 class="title" id="headers">הוספת משימה</h2>
+        <br>
+        <br>
+        <br>
+        <form action="" class="formClass form-group" method="post" >
+            {% csrf_token %}
+            <div class="addmissionpage">
+            <div>
+                <label class="missionlable">פירוט המשימה:</label>
+            </div>
+            <div class="mb-3">
+                {{form.text}}
+            </div>
+            <div class="mb-3">
+                <label class="missionlable">שיוך המשימה לגן</label>
+                {{ form.gannet }}
+
+            </div>
+                 <button type="submit" class="btn btn-primary">הוסף</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+    {% endblock %}

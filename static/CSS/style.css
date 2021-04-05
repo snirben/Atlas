@@ -5,23 +5,28 @@
    font-family: 'Rubik', sans-serif;
 }
 
-.headers {
+
+
+#plusicon{
+   resize: none;
+}
+
+.fa-plus{
+   padding-left: 11px;
+   padding-top: 40px;
+}
+
+#headers{
    padding-right: 30px;
    padding-top: 20px;
    float: right;
    font-family: 'Rubik', sans-serif;
 }
 
-.btn-adduser {
-   padding-left: 20px;
-   padding-top: 30px;
-   float: left;
+.addmissionpage{
+    float: right;
 }
 
-.icons {
- color: #bbbbbb;
-}
-
-.formClass {
-   float: right;
+.missionlable{
+    float: right;
 }
