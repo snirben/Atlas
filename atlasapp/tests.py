@@ -34,3 +34,12 @@ class UserTestCreate(TestCase):
     def test_check_child_is_created(self):
         child = User.objects.get(username="test_child_username")
         self.assertEqual(child.username, "test_child_username")
+
+class UserTestViews(TestCase):
+
+    def test_index_loads_properly(self):
+        c = Client()
+        response = c.post('', {'username': 'admin', 'password': '123456'})
+        response.status_code
+
+        self.assertEqual(response.status_code, 200)
