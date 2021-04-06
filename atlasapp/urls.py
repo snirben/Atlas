@@ -20,5 +20,6 @@ urlpatterns = [
     path('addMissions/', views.createMission, name="createMission"),
     path(r'^deletechild/(?P<part_id>[0-9]+)/$', views.delete_child, name='delete_child'),
     path(r'^(?P<id>\d+)/editchild/$', views.edit_child, name='edit_child'),
+    path('gManageMissions/',views.missions_view_gannet,name="gManageMissions"),
 
 ]
