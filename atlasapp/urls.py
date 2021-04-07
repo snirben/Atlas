@@ -21,5 +21,6 @@ urlpatterns = [
     path(r'^deletechild/(?P<part_id>[0-9]+)/$', views.delete_child, name='delete_child'),
     path(r'^(?P<id>\d+)/editchild/$', views.edit_child, name='edit_child'),
     path('gManageMissions/',views.missions_view_gannet,name="gManageMissions"),
+    path(r'^change_mission_status/(?P<part_id>[0-9]+)/$', views.get_mission_done, name='get_mission_done'),
 
 ]

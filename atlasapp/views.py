@@ -145,3 +145,10 @@ def missions_view_gannet(request):
     missions = Mission.objects.all()
     context = {'missions' : missions}
     return render(request, 'atlasapp\gManageMissions.html',context)
+
+
+def get_mission_done(request, part_id = None):
+    obj = Mission.objects.get(id=part_id)
+    obj.done = True
+    obj.save()
+    return redirect('gManageMissions')
