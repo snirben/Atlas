@@ -140,3 +140,8 @@ def edit_child(request, id):
     else:
         context = {'form': form}
         return render(request, 'atlasapp/gEditUser.html', context)
+
+def missions_view_gannet(request):
+    missions = Mission.objects.all()
+    context = {'missions' : missions}
+    return render(request, 'atlasapp\gManageMissions.html',context)
