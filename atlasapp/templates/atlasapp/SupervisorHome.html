@@ -1,0 +1,35 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+
+<title>דף הבית-מפקחת</title>
+<div>
+    <h2 class ="title" id="headers">דף בית מפקחת</h2>
+</div>
+
+<div class="missionsboard">
+
+    <table class="table table-center">
+        <tr class="table-info" >
+            <a class="icons" href="{% url 'manageMissions' %}"><i class="fa fa-pencil" style="color:#bbbbbb"></i></a>
+          <th class="thmission" scope="col">משימות</th>
+        </tr>
+        {% for item in missions%}
+                <tr>
+                    {% if item.done%}
+                        <td class="donemission">
+                        <li class="limission">{{item.text}}</li>
+                        </td>
+                    {% else %}
+                        <td class="notdonemission">
+                        <li class="limission">{{item.text}}</li>
+                        </td>
+                    {% endif %}
+
+                </tr>
+            {% endfor %}
+    </table>
+</div>
+
+
+{% endblock %}
