@@ -26,6 +26,9 @@ def loginpage (request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
+        if user.role == 0:
+            login(request, user)
+            return redirect('SupervisorHome')
         if user is not None:
             login(request, user)
             return redirect('home')
@@ -35,6 +38,12 @@ def loginpage (request):
             )
     context = {}
     return render(request,'atlasapp/login.html',context)
+
+def SupervisorHome (request):
+    missions = Mission.objects.all()
+    context = {'missions': missions}
+    return render(request, 'atlasapp/SupervisorHome.html', context)
+
 
 def logout_view(request):
     logout(request)

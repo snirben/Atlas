@@ -5,7 +5,36 @@
    font-family: 'Rubik', sans-serif;
 }
 
+.myback {
+ background-color: #F00;
+ background:red;
+}
 
+
+.missionsboard{
+    float: right;
+   padding-top: 60px;
+}
+.limission{
+    float: right;
+}
+.thmission{
+        float: right;
+
+}
+
+.donemission:hover{
+    background: #c8eed9;
+}
+
+
+.notdonemission:hover{
+    background: #f39189;
+}
+
+#editicon{
+    float: left;
+}
 
 #plusicon{
    resize: none;
@@ -30,3 +59,4 @@
 .missionlable{
     float: right;
 }
+
