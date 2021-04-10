@@ -26,6 +26,9 @@
                         {% else %}לא בוצע
                         {% endif %}
                     </td>
+                    <td>
+                         <a class="btn btn-primary" href="{% url 'get_mission_done' item.id %}" role="button">ביצעתי!</a>
+                    </td>
                 </tr>
             {% endif %}
         {% endfor %}
