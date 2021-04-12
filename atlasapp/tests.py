@@ -16,6 +16,7 @@ class UserTestCreate(TestCase):
             mevodad=False,
             covid=False,
             role=1)
+
         self.child = User.objects.get_or_create(
             username='test_child_username',
             password='test_child_password',
@@ -27,6 +28,7 @@ class UserTestCreate(TestCase):
             covid=True,
             role=2)
 
+
     def test_check_gannet_is_created(self):
         gannet = User.objects.get(username="test_gannet_username")
         self.assertEqual(gannet.username, "test_gannet_username")
@@ -34,6 +36,8 @@ class UserTestCreate(TestCase):
     def test_check_child_is_created(self):
         child = User.objects.get(username="test_child_username")
         self.assertEqual(child.username, "test_child_username")
+
+
 
 class UserTestViews(TestCase):
 
@@ -45,10 +49,10 @@ class UserTestViews(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_login_loads_properly(self):
-            response = self.client.get('http://127.0.0.1:8000')
-            self.assertEqual(response.status_code, 200)
+        response = self.client.get('http://127.0.0.1:8000')
+        self.assertEqual(response.status_code, 200)
 
     def test_404_loads_properly(self):
-            response = self.client.get('http://127.0.0'
-                                       '.1:8000/nonepage')
-            self.assertEqual(response.status_code, 404)
+        response = self.client.get('http://127.0.0'
+                                   '.1:8000/nonepage')
+        self.assertEqual(response.status_code, 404)
