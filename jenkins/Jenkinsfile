@@ -9,10 +9,9 @@ pipeline {
                 }
             }
             steps {
-                sh 'nohup python3 manage.py runserver &'
-                sh 'sudo pip3 install unittest-xml-reporting'
                 sh 'python3 manage.py makemigrations'
                 sh 'python3 manage.py migrate'
+                sh 'nohup python3 manage.py runserver &'
                 sh 'python3 manage.py test'
             }
             post {
