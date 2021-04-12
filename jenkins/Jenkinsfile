@@ -9,13 +9,15 @@ pipeline {
                 }
             }
             steps {
+                sh 'nohup python3 manage.py runserver &'
+                sh 'pip install unittest-xml-reporting'
                 sh 'python3 manage.py makemigrations'
                 sh 'python3 manage.py migrate'
                 sh 'python3 manage.py test'
             }
             post {
                 always {
-                    junit 'test-reports/results.xml'
+                    junit 'test-reports/junit.xml'
                 }
             }
         }
