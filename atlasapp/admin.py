@@ -4,3 +4,4 @@ from .models import *
 admin.site.register(User)
 admin.site.register(Gan)
 admin.site.register(Mission)
+admin.site.register(Subject)

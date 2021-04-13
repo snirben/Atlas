@@ -29,3 +29,5 @@ class Mission(models.Model):
     gannet = models.ForeignKey(Gan, on_delete=models.CASCADE)
 
 
+class Subject(models.Model):
+    gamesubject = models.CharField(max_length=50, null=False)
