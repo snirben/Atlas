@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from atlasapp.choices import *
 
 
 class Gan(models.Model):
@@ -31,3 +32,9 @@ class Mission(models.Model):
 
 class Subject(models.Model):
     gamesubject = models.CharField(max_length=50, null=False)
+
+
+class SubSubject(models.Model):
+    subsubject = models.CharField(max_length=50, null=False);
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE);
+    gametype = models.IntegerField(choices=GAME_CHOICES,default=1)

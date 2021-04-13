@@ -1,4 +1,5 @@
 from django import forms
+from atlasapp.choices import *
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
@@ -29,3 +30,7 @@ class AddMissionForm(forms.ModelForm):
     class Meta:
         model = Mission
         fields = ["text", "done", "gannet"]
+
+
+class gameChoicesForm(forms.Form):
+    gametype=forms.ChoiceField(choices = GAME_CHOICES, required=True)
