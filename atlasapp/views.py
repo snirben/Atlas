@@ -29,7 +29,10 @@ def loginpage (request):
         if user.role == 0:
             login(request, user)
             return redirect('SupervisorHome')
-        if user is not None:
+        elif user.role == 1:
+            login(request, user)
+            return redirect('GannetHome')
+        elif user is not None:
             login(request, user)
             return redirect('home')
         else:
@@ -43,6 +46,10 @@ def SupervisorHome (request):
     missions = Mission.objects.all()
     context = {'missions': missions}
     return render(request, 'atlasapp/SupervisorHome.html', context)
+
+def GannetHome (request):
+    context = {}
+    return render(request, 'atlasapp/GannetHome.html', context)
 
 
 def logout_view(request):
@@ -109,6 +116,14 @@ def edituser(request, id):
     else:
         context = {'form': form}
         return render(request, 'atlasapp/sEditUser.html', context)
+
+
+
+def editGamesGannet(request):
+    context = {}
+    return render(request, 'atlasapp/editGamesGannet.html', context)
+
+
 
 def bidudim(request):
     gans = Gan.objects.all()
