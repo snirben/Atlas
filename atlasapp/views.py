@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db import models
 
-from atlasapp.forms import AddUserForm, AddMissionForm
+from atlasapp.forms import AddUserForm, AddMissionForm, AddItemForm
 from atlasapp.models import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -57,12 +57,10 @@ def logout_view(request):
     return redirect('login')
 
 
-
 def missions_view(request):
     missions = Mission.objects.all()
     context = {'missions' : missions}
     return render(request, 'atlasapp\manageMissions.html',context)
-
 
 def delete_mission(request, part_id = None):
     obj = Mission.objects.get(id=part_id)
@@ -72,11 +70,33 @@ def delete_mission(request, part_id = None):
 def createMission(request):
     form = AddMissionForm(request.POST or None)
     if form.is_valid():
+
         form.save()
         return redirect('manageMissions')
     else:
         form = AddMissionForm()
     return render(request, 'atlasapp/addMissions.html', {'form': form})
+
+def games_view(request):
+    items = Item.objects.all()
+    context = {'missions' : items}
+    return render(request, 'atlasapp\gManageGames.html',context)
+
+def delete_item(request, part_id = None):
+    obj = Item.objects.get(id=part_id)
+    obj.delete()
+    return redirect('gManageGames')
+
+def createItem(request):
+    form = AddItemForm(request.POST, request.FILES)
+    print(request)
+    if form.is_valid():
+
+        form.save()
+        return redirect('gManageGames')
+    else:
+        form = AddItemForm()
+    return render(request, 'atlasapp/gAddItem.html', {'form': form})
 
 
 def sManageUsers(request):
@@ -117,12 +137,23 @@ def edituser(request, id):
         context = {'form': form}
         return render(request, 'atlasapp/sEditUser.html', context)
 
+def editItem(request, id):
+    obj = get_object_or_404(Item, id=id)
+    form = AddItemForm(request.POST, request.FILES, instance=obj)
+    context = {'form': form}
 
+    if form.is_valid():
+        print("iffffffffff")
+        obj = form.save(commit=False)
+        obj.save()
+        context = {'form': form}
+        return redirect('gManageGames')
 
-def editGamesGannet(request):
-    context = {}
-    return render(request, 'atlasapp/editGamesGannet.html', context)
-
+    else:
+        print(form.errors)
+        print("in  elseeeeeeeeeeeee")
+        context = {'form': form}
+        return render(request, 'atlasapp/gEditItem.html', context)
 
 
 def bidudim(request):

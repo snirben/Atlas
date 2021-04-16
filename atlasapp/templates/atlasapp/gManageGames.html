@@ -1,0 +1,56 @@
+
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+
+<title>ניהול משחקים</title>
+
+<div class="container">
+  <h2 class ="title" id="headers">עריכת משחקים</h2>
+    <a class="icons" id="plusicon" href="{% url 'createItem' %}" ><i class="fa fa-plus" style="color:#bbbbbb"></i></a>
+
+    <table class="table table-center">
+
+        <tr class="table-info" >
+          <th  scope="col">תמונה</th>
+          <th  scope="col">שמע</th>
+          <th  scope="col">נושא</th>
+          <th  scope="col">צבע</th>
+          <th></th>
+
+          <th></th>
+        </tr>
+        {% for item in missions%}
+                <tr>
+                    <td>
+                        {{item.image}}
+                    </td>
+                    <td>
+                        {{item.audio}}
+
+                    </td>
+                    <td>
+                        {{item.subject.gamesubject}}
+                    </td>
+
+                    <td>
+                        {{item.gametype}}
+                    </td>
+                    <td>
+                        <a class="icons" href="{% url 'delete_item' item.id %}"><i class="fa fa-trash" style="color:#bbbbbb"></i></a>
+                    </td>
+                    <td>
+                        <a class="icons" id="pencil" href="{% url 'editItem' item.id%}" ><i class="fa fa-pencil" style="color:#bbbbbb"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+    </table>
+</div>
+
+
+
+
+
+</body>
+</html>
+{% endblock %}
