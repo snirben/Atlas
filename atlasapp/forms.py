@@ -3,7 +3,7 @@ from atlasapp.choices import *
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
-from .models import User, Mission
+from .models import User, Mission, Item
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import UpdateView
@@ -30,6 +30,17 @@ class AddMissionForm(forms.ModelForm):
     class Meta:
         model = Mission
         fields = ["text", "done", "gannet"]
+
+class AddItemForm(forms.ModelForm):
+
+    def init(self, *args, **kwargs):
+        super(AddItemForm, self).init(*args, **kwargs)
+        self.fields["image"].required=False
+        self.fields["audio"].required=False
+
+    class Meta:
+        model = Item
+        fields = ["image", "audio", "subject","gametype"]
 
 
 class gameChoicesForm(forms.Form):

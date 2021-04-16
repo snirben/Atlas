@@ -1,0 +1,38 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+<title>הוספת פריט</title>
+
+    <div class="container">
+        <h2 class="title" id="headers">הוספת נושא משחק</h2>
+        <br>
+        <br>
+        <br>
+        <form action = "" class="formClass form-group" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="gadditempage">
+            <div>
+                <label class="additempagelable">הוספת תמונה:</label>
+            </div>
+            <div class="mb-3">
+                {{form.image}}
+            </div>
+            <div class="mb-3">
+                <label class="additempagelable">הוספת קובץ שמע:</label><br>
+                {{ form.audio }}
+            </div>
+            <div class="mb-3">
+                <label class="additempagelable">נושא:</label>
+                {{ form.subject }}
+            </div>
+             <div class="mb-3">
+                <label class="additempagelable">צבע:</label>
+                {{ form.gametype }}
+            </div>
+                 <button type="submit" value="Submit" class="btn btn-primary">הוסף</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+    {% endblock %}
