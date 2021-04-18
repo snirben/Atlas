@@ -143,15 +143,12 @@ def editItem(request, id):
     context = {'form': form}
 
     if form.is_valid():
-        print("iffffffffff")
         obj = form.save(commit=False)
         obj.save()
         context = {'form': form}
         return redirect('gManageGames')
 
     else:
-        print(form.errors)
-        print("in  elseeeeeeeeeeeee")
         context = {'form': form}
         return render(request, 'atlasapp/gEditItem.html', context)
 
