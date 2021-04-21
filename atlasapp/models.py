@@ -31,21 +31,25 @@ class Mission(models.Model):
 
 
 class Subject(models.Model):
-    gamesubject = models.CharField(max_length=50, null=False)
+    name = models.CharField(max_length=50, null=False)
+    image = models.ImageField(upload_to="image", default="media/image/image.jpg")
+    audio = models.FileField(upload_to="audio", default="media/audio/default.mp3")
 
     def __str__(self):
-        return '{}'.format(self.gamesubject)
+        return '{}'.format(self.name)
 
 class SubSubject(models.Model):
-    subsubject = models.CharField(max_length=50, null=False);
+    name = models.CharField(max_length=50, null=False);
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE);
     gametype = models.CharField(choices=GAME_CHOICES, max_length=30, default=1)
+    image = models.ImageField(upload_to="image", default="media/image/image.jpg")
+    audio = models.FileField(upload_to="audio", default="media/audio/default.mp3")
 
 
 
 class Item(models.Model):
-    image = models.ImageField(upload_to="image")
-    audio = models.FileField(upload_to="audio")
+    image = models.ImageField(upload_to="image", default="media/image/image.jpg")
+    audio = models.FileField(upload_to="audio", default="media/audio/default.mp3")
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     gametype = models.CharField(choices=COLOR_CHOICES, max_length=30 ,default=9)
 
