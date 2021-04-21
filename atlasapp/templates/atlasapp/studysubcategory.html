@@ -20,7 +20,12 @@
 
     </div>
 
-
+</div>
+      <div style="display: none;">
+               <audio id="audio-{{ subsubject.id }}" controls>
+                   <source src="{{ subsubject.audio.url }}" type="audio/mp3">
+                </audio>
+      </div>
         {% endfor %}
 </div>
 </div>
