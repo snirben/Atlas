@@ -48,3 +48,9 @@ class Item(models.Model):
     audio = models.FileField(upload_to="audio")
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     gametype = models.CharField(choices=COLOR_CHOICES, max_length=30 ,default=9)
+
+class Game(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    steps = models.IntegerField(default=0)
+
