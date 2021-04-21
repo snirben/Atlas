@@ -42,6 +42,8 @@ class SubSubject(models.Model):
     name = models.CharField(max_length=50, null=False);
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE);
     gametype = models.CharField(choices=GAME_CHOICES, max_length=30, default=1)
+    image = models.ImageField(upload_to="image", default="media/image/image.jpg")
+    audio = models.FileField(upload_to="audio", default="media/audio/default.mp3")
 
 
 
