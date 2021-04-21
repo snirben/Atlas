@@ -32,6 +32,9 @@ def loginpage (request):
         elif user.role == 1:
             login(request, user)
             return redirect('GannetHome')
+        elif user.role == 2:
+            login(request, user)
+            return redirect('childhome')
         elif user is not None:
             login(request, user)
             return redirect('home')
@@ -204,3 +207,13 @@ def get_mission_done(request, part_id = None):
     obj.done = True
     obj.save()
     return redirect('gManageMissions')
+
+@login_required
+def childhome (request):
+    context = {}
+    return render(request, 'atlasapp/childhome.html', context)
+
+@login_required
+def studycategory(request):
+    context = {}
+    return render(request, 'atlasapp/studycategory.html', context)
