@@ -8,6 +8,7 @@ urlpatterns = [
     path('register/',views.registerpage, name="register"),
     path('home/',views.home, name="home"),
     path('SupervisorHome/', views.SupervisorHome, name="SupervisorHome"),
+    path('childhome/', views.childhome, name="childhome"),
     path('GannetHome/', views.GannetHome, name="GannetHome"),
     path('logout/',views.logout_view,name="logout"),
     path('manageMissions/',views.missions_view,name="manageMissions"),
@@ -28,5 +29,5 @@ urlpatterns = [
     path(r'^(?P<id>\d+)/editchild/$', views.edit_child, name='edit_child'),
     path('gManageMissions/',views.missions_view_gannet,name="gManageMissions"),
     path(r'^change_mission_status/(?P<part_id>[0-9]+)/$', views.get_mission_done, name='get_mission_done'),
-
+    path('studycategory', views.studycategory, name='studycategory')
 ]
