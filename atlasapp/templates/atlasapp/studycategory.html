@@ -1,11 +1,27 @@
 {% extends 'atlasapp/home.html' %}
 {% load static %}
 {% block content %}
-
+	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="{% static '/CSS/childhome.css' %}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>בחירת קטוגריית לימוד</title>
 <div>
-    <h2 class ="title" id="headers">בחירת קטגורית לימוד</h2>
+
 </div>
+
+<div class="container d-flex justify-content-center">
+  <div class="card-deck">
+    {% for subject in subjects %}
+  <div class="card-transparent">
+    <img class="img-thumbnail" src="{{ subject.image.url }}" style="width: 300px;height: 300px;" alt="Card image cap">
+    <div class="card-body">
+      <h2 class="card-title" id="categoryname">{{subject.name}}</h2>
+    </div>
+  </div>
+        {% endfor %}
+</div>
+</div>
+
 
 
 {% endblock %} 

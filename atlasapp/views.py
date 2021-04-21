@@ -215,5 +215,6 @@ def childhome (request):
 
 @login_required
 def studycategory(request):
-    context = {}
+    subjects = Subject.objects.all()
+    context = {'subjects':subjects}
     return render(request, 'atlasapp/studycategory.html', context)
