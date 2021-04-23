@@ -50,8 +50,9 @@ class SubSubject(models.Model):
 class Item(models.Model):
     image = models.ImageField(upload_to="image", default="media/image/image.jpg")
     audio = models.FileField(upload_to="audio", default="media/audio/default.mp3")
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    gametype = models.CharField(choices=COLOR_CHOICES, max_length=30 ,default=9)
+    subject = models.ForeignKey(SubSubject, on_delete=models.CASCADE)
+    gametype = models.CharField(choices=GAME_CHOICES, max_length=30 ,default=9)
+    color = models.CharField(choices=COLOR_CHOICES, max_length=30, default=9)
 
 class Game(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
