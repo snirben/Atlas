@@ -45,7 +45,8 @@ class SubSubject(models.Model):
     image = models.ImageField(upload_to="image", default="media/image/image.jpg")
     audio = models.FileField(upload_to="audio", default="media/audio/default.mp3")
 
-
+    def __str__(self):
+        return '{}'.format(self.name)
 
 class Item(models.Model):
     image = models.ImageField(upload_to="image", default="media/image/image.jpg")
@@ -53,6 +54,9 @@ class Item(models.Model):
     subject = models.ForeignKey(SubSubject, on_delete=models.CASCADE)
     gametype = models.CharField(choices=GAME_CHOICES, max_length=30 ,default=9)
     color = models.CharField(choices=COLOR_CHOICES, max_length=30, default=9)
+
+    def __str__(self):
+        return '{}'.format(self.subject)
 
 class Game(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
