@@ -234,6 +234,7 @@ def pickgame(request, id):
     return render(request, 'atlasapp/pickgame.html', context)
 
 @login_required
-def game(request):
-    context = {}
-    return render(request, 'atlasapp/game.html', context)
+def memory_game(request,subsubject_id):
+    items= Item.objects.filter(subject_id = subsubject_id)
+    context = {'items':items}
+    return render(request, 'atlasapp/memory_game.html', context)
