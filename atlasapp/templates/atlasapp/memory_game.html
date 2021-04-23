@@ -1,0 +1,26 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="{% static '/CSS/game.css' %}" rel="stylesheet">
+    <script src="{% static '/JS/game.js' %}"></script>
+
+<div class="container">
+ <section class="memory-game">
+     {% for item in items %}
+     <div class="memory-card" id="{{ item.id }}" data-framework="{{ item.id}}">
+         <img class="front-face" src="{{item.image.url}}">
+         <img class="back-face" src="{% static 'images/backv4.png'%}">
+
+     </div>
+     {% endfor %}
+       {% for item in items %}
+     <div class="memory-card" id="{{ item.id }}" data-framework="{{ item.id}}">
+         <img class="front-face" src="{{item.image.url}}">
+         <img class="back-face" src="{% static 'images/backv4.png'%}">
+
+     </div>
+     {% endfor %}
+ </section>
+</div>
+    {% endblock %}
