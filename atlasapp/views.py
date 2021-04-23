@@ -232,3 +232,8 @@ def pickgame(request, id):
     SubSubjects = SubSubject.objects.filter(name = subsubject.name)
     context = {'SubSubjects':SubSubjects}
     return render(request, 'atlasapp/pickgame.html', context)
+
+@login_required
+def game(request):
+    context = {}
+    return render(request, 'atlasapp/game.html', context)

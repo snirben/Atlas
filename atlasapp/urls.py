@@ -30,6 +30,8 @@ urlpatterns = [
     path('gManageMissions/',views.missions_view_gannet,name="gManageMissions"),
     path(r'^change_mission_status/(?P<part_id>[0-9]+)/$', views.get_mission_done, name='get_mission_done'),
     path('studycategory', views.studycategory, name='studycategory'),
-    path('studysubcategory/<part_id>/', views.studysubcategory, name='studysubcategory')
+    path('studysubcategory/<part_id>/', views.studysubcategory, name='studysubcategory'),
+    path('studysubcategory/pick_game/<id>/', views.pickgame, name='pickgame'),
+    path('game/', views.game, name='game')
 
 ]
