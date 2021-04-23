@@ -225,3 +225,10 @@ def studysubcategory(request, part_id):
     SubSubjects = SubSubject.objects.filter(subject_id = subject.id)
     context = {'SubSubjects':SubSubjects}
     return render(request, 'atlasapp/studysubcategory.html', context)
+
+@login_required
+def pickgame(request, id):
+    subsubject = SubSubject.objects.get(id=id)
+    SubSubjects = SubSubject.objects.filter(name = subsubject.name)
+    context = {'SubSubjects':SubSubjects}
+    return render(request, 'atlasapp/pickgame.html', context)
