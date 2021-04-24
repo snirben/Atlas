@@ -2,6 +2,7 @@
 $( document ).ready(function() {
 
 var steps=0;
+let firstCard, secondCard;
 
 const cards = document.querySelectorAll('.memory-card');
 
