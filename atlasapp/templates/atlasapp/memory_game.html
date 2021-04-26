@@ -11,14 +11,22 @@
      <div class="memory-card" id="{{ item.id }}" data-framework="{{ item.id}}">
          <img class="front-face" src="{{item.image.url}}">
          <img class="back-face" src="{% static 'images/backv4.png'%}">
-
+    <div style="display: none;">
+               <audio id="audio-{{ item.id }}" controls>
+                   <source src="{{ item.audio.url }}" type="audio/mp3">
+                </audio>
+      </div>
      </div>
      {% endfor %}
        {% for item in items %}
      <div class="memory-card" id="{{ item.id }}" data-framework="{{ item.id}}">
          <img class="front-face" src="{{item.image.url}}">
          <img class="back-face" src="{% static 'images/backv4.png'%}">
-
+        <div style="display: none;">
+               <audio id="audio-{{ item.id }}" controls>
+                   <source src="{{ item.audio.url }}" type="audio/mp3">
+                </audio>
+      </div>
      </div>
      {% endfor %}
  </section>

@@ -6,8 +6,15 @@ let firstCard, secondCard;
 
 const cards = document.querySelectorAll('.memory-card');
 
+function flipCard() {
+  var num = $(this).attr('id');
+  var name = 'audio-'+ num;
+  var audioElem = $('#'+name);
+  audioElem[0].play();
 
 
+    return;
+  }
 
 (function shuffle() {
   cards.forEach(card => {
