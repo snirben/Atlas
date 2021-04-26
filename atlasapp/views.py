@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db import models
+import random
 
 from atlasapp.forms import AddUserForm, AddMissionForm, AddItemForm
 from atlasapp.models import *
@@ -238,3 +239,16 @@ def memory_game(request,subsubject_id):
     items= Item.objects.filter(subject_id = subsubject_id)
     context = {'items':items}
     return render(request, 'atlasapp/memory_game.html', context)
+
+
+def someInThePicture_view(request,subject_id):
+    context = {'subject_id':subject_id}
+    return render(request, 'atlasapp/someInThePicture.html', context)
+
+
+def someInThePictureGame(request,subject_id):
+    items=Item.objects.filter(subject_id=subject_id)
+    index = random.randint(0, len(items)-1)
+    randobject=items[index]
+    context = {'randobject': randobject}
+    return render(request, 'atlasapp/someInThePictureGame.html', context)
