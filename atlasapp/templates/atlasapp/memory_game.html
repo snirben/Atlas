@@ -6,6 +6,10 @@
     <script src="{% static '/JS/game.js' %}"></script>
 
 <div class="container">
+    <div class="text-center">
+    <h1> משחק הזכרון</h1>
+    <h3> צעדים: <span id="steps">0 </span></h3>
+</div>
  <section class="memory-game">
      {% for item in items %}
      <div class="memory-card" id="{{ item.id }}" data-framework="{{ item.id}}">

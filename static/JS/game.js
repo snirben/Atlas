@@ -6,15 +6,21 @@ let firstCard, secondCard;
 
 const cards = document.querySelectorAll('.memory-card');
 
+function incsteps(){
+  steps+=1;
+}
+
 function flipCard() {
   var num = $(this).attr('id');
   var name = 'audio-'+ num;
   var audioElem = $('#'+name);
   audioElem[0].play();
 
-
+    incsteps();
     return;
   }
+
+
 
 function resetBoard() {
   [hasFlippedCard, lockBoard] = [false, false];
