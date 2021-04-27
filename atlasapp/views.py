@@ -238,7 +238,6 @@ def pickgame(request, id):
 def memory_game(request,subsubject_id):
     items= Item.objects.filter(subject_id = subsubject_id)
     context = {'items':items}
-    
     return render(request, 'atlasapp/memory_game.html', context)
 
 
