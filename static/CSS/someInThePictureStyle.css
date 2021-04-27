@@ -30,15 +30,21 @@ html{
     padding-right: 300px;
 }
 
-.card-container {
-    width: 500px;
-    height: 420px;
-    position:relative;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 70px;
+.pic-group{
+  width: 100%;
+  margin: 0 auto;
+  max-width: 700px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 200px;
+}
 
+.card-container {
+    display: inline-block;
+    width: 16.1%;
+    height: auto;
 }
 
 .card-container img {
@@ -50,7 +56,12 @@ html{
 
 .buttons{
     position:relative;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 400px;
 }
+
 .btn-group {
     position: relative;
     left:35%;
