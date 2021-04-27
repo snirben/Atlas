@@ -21,6 +21,7 @@ function flipCard() {
   var num = $(this).attr('id');
   var name = 'audio-'+ num;
   var audioElem = $('#'+name);
+
   audioElem[0].play();
 
   if (!hasFlippedCard) {
