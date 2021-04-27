@@ -10,7 +10,7 @@ from atlasapp.models import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 # Create your views here.
-from django.http import HttpResponse
+from django.http import JsonResponse
 
 
 @login_required
@@ -252,3 +252,11 @@ def someInThePictureGame(request,subject_id):
     randobject=items[index]
     context = {'randobject': randobject}
     return render(request, 'atlasapp/someInThePictureGame.html', context)
+
+def end_memory_game(request):
+    game_id = request.GET.get('game_id')
+    steps = request.GET.get('steps')
+    game = get_object_or_404(Game,pk=game_id)
+    game.steps = steps
+    game.save()
+    return JsonResponse(data={},status=200)
