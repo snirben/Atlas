@@ -28,6 +28,12 @@ function incsteps(){
 function checkmatch(){
     incsteps();
     if(random === $(this).attr('id')-1){
+         $(this).removeClass('btn-info').addClass('btn-success');
+        var t_this = $(this);
+        setTimeout(function(){
+            t_this.removeClass('btn-success').addClass('btn-info');
+            console.log(t_this);
+        },1000)
 
         if(checkend()){
             endgame();
@@ -40,7 +46,12 @@ function checkmatch(){
         items[index].style.display = 'block';
     }
     else{
-
+         $(this).removeClass('btn-info').addClass('btn-danger');
+        var t_this = $(this);
+        setTimeout(function(){
+            t_this.removeClass('btn-danger').addClass('btn-info');
+            console.log(t_this);
+        },1000)
     }
 }
 
