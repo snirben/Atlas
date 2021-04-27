@@ -13,14 +13,26 @@ function incsteps(){
 }
 
 function flipCard() {
+  if (lockBoard) return;
+  if (this === firstCard) return;
+  incsteps();
+  showsteps();
+  this.classList.add('flip');
   var num = $(this).attr('id');
   var name = 'audio-'+ num;
   var audioElem = $('#'+name);
   audioElem[0].play();
 
-    incsteps();
+  if (!hasFlippedCard) {
+    hasFlippedCard = true;
+    firstCard = this;
+
     return;
   }
+
+  secondCard = this;
+  checkForMatch();
+}
 
 
 
