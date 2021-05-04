@@ -38,5 +38,7 @@ urlpatterns = [
     path('colorgame/<subsubject_id>/', views.colorgame, name='colorgame')
 
 
+    path('someInThePictureGame/<subject_id>/', views.someInThePictureGame, name='someInThePictureGame'),
+    path('ajax/save-game-result/', views.end_memory_game, name='save-game-result')
 
 ]
