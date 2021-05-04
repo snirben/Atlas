@@ -95,6 +95,7 @@
         <h1 style="font-size: 4.5rem;">ברכותיי!</h1>
         <h2>הצלחת לסיים את המשחק</h2>
         <br>
+        <a href="{% url 'childhome' %}"><button type="button" class="btn btn-outline-danger btn-lg">סיים משחק</button></a>
         <a href="{% url 'colorgame' items.first.subject.id %}"><button type="button" class="btn btn-outline-success btn-lg">להמשיך לשחק</button></a>
     </div>
     {% endblock %}

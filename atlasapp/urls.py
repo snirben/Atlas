@@ -35,12 +35,11 @@ urlpatterns = [
     path('memory_game/<subsubject_id>/', views.memory_game, name='memory_game'),
     path('someInThePicture/<subject_id>/', views.someInThePicture_view, name='someInThePicture'),
     path('someInThePictureGame/<subject_id>/', views.someInThePictureGame, name='someInThePictureGame'),
-    path('colorgame/<subsubject_id>/', views.colorgame, name='colorgame')
+    path('colorgame/<subsubject_id>/', views.colorgame, name='colorgame'),
     path('someInThePictureGame/<subject_id>/', views.someInThePictureGame, name='someInThePictureGame'),
-    path('ajax/save-someinthepicture-result/', views.endsomeinthepicturegame, name='endsomeinthepicturegame')
-
-
+    path('ajax/save-someinthepicture-result/', views.endsomeinthepicturegame, name='endsomeinthepicturegame'),
     path('someInThePictureGame/<subject_id>/', views.someInThePictureGame, name='someInThePictureGame'),
-    path('ajax/save-game-result/', views.end_memory_game, name='save-game-result')
+    path('ajax/save-game-result/', views.end_memory_game, name='save-game-result'),
+    path('ajax/save-colorgame-result/', views.end_color_game, name='save-colorgame-result')
 
 ]

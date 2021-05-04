@@ -237,7 +237,9 @@ def pickgame(request, id):
 @login_required
 def memory_game(request,subsubject_id):
     items= Item.objects.filter(subject_id = subsubject_id)
-    context = {'items':items}
+    game = Game(user=request.user)
+    game.save()
+    context = {'items':items, 'game': game}
     return render(request, 'atlasapp/memory_game.html', context)
 
 @login_required
@@ -256,7 +258,9 @@ def someInThePictureGame(request,subject_id):
 @login_required
 def colorgame(request,subsubject_id):
     items= Item.objects.filter(subject_id = subsubject_id)
-    context = {'items':items}
+    game = Game(user=request.user)
+    game.save()
+    context = {'items':items, 'game': game}
     return render(request, 'atlasapp/colorgame.html', context)
 
 def end_memory_game(request):
@@ -268,6 +272,14 @@ def end_memory_game(request):
     return JsonResponse(data={},status=200)
 
 def endsomeinthepicturegame(request):
+    game_id = request.GET.get('game_id')
+    steps = request.GET.get('steps')
+    game = get_object_or_404(Game, pk=game_id)
+    game.steps = steps
+    game.save()
+    return JsonResponse(data={}, status=200)
+
+def end_color_game(request):
     game_id = request.GET.get('game_id')
     steps = request.GET.get('steps')
     game = get_object_or_404(Game, pk=game_id)
