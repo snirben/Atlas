@@ -89,7 +89,10 @@ $.ajax({
                 'game_id': $("section")[0].id
             },
             success: function () {
-
+              setTimeout(() => {
+                $('.container')[0].style.display = 'none';
+                $('.container')[1].style.display = 'block';
+              }, 1500);
             }
         });
 }
