@@ -34,7 +34,8 @@ urlpatterns = [
     path('studysubcategory/pick_game/<id>/', views.pickgame, name='pickgame'),
     path('memory_game/<subsubject_id>/', views.memory_game, name='memory_game'),
     path('someInThePicture/<subject_id>/', views.someInThePicture_view, name='someInThePicture'),
-    path('someInThePictureGame/<subject_id>/', views.someInThePictureGame, name='someInThePictureGame')
+    path('someInThePictureGame/<subject_id>/', views.someInThePictureGame, name='someInThePictureGame'),
+    path('colorgame/<subsubject_id>/', views.colorgame, name='colorgame')
 
 
 

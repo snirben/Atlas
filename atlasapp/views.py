@@ -253,3 +253,9 @@ def someInThePictureGame(request,subject_id):
     randobject=items[index]
     context = {'randobject': randobject}
     return render(request, 'atlasapp/someInThePictureGame.html', context)
+
+@login_required
+def colorgame(request,subsubject_id):
+    items= Item.objects.filter(subject_id = subsubject_id)
+    context = {'items':items}
+    return render(request, 'atlasapp/colorgame.html', context)
