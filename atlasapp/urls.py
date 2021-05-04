@@ -36,6 +36,8 @@ urlpatterns = [
     path('someInThePicture/<subject_id>/', views.someInThePicture_view, name='someInThePicture'),
     path('someInThePictureGame/<subject_id>/', views.someInThePictureGame, name='someInThePictureGame'),
     path('colorgame/<subsubject_id>/', views.colorgame, name='colorgame')
+    path('someInThePictureGame/<subject_id>/', views.someInThePictureGame, name='someInThePictureGame'),
+    path('ajax/save-someinthepicture-result/', views.endsomeinthepicturegame, name='endsomeinthepicturegame')
 
 
     path('someInThePictureGame/<subject_id>/', views.someInThePictureGame, name='someInThePictureGame'),

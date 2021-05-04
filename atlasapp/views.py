@@ -240,17 +240,17 @@ def memory_game(request,subsubject_id):
     context = {'items':items}
     return render(request, 'atlasapp/memory_game.html', context)
 
-
+@login_required
 def someInThePicture_view(request,subject_id):
     context = {'subject_id':subject_id}
     return render(request, 'atlasapp/someInThePicture.html', context)
 
-
+@login_required
 def someInThePictureGame(request,subject_id):
     items=Item.objects.filter(subject_id=subject_id)
-    index = random.randint(0, len(items)-1)
-    randobject=items[index]
-    context = {'randobject': randobject}
+    game = Game(user=request.user)
+    game.save()
+    context = {'items': items, 'game':game}
     return render(request, 'atlasapp/someInThePictureGame.html', context)
 
 @login_required
@@ -266,3 +266,11 @@ def end_memory_game(request):
     game.steps = steps
     game.save()
     return JsonResponse(data={},status=200)
+
+def endsomeinthepicturegame(request):
+    game_id = request.GET.get('game_id')
+    steps = request.GET.get('steps')
+    game = get_object_or_404(Game, pk=game_id)
+    game.steps = steps
+    game.save()
+    return JsonResponse(data={}, status=200)
