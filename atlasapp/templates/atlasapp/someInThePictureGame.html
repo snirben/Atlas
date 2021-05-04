@@ -11,7 +11,7 @@
 <div class="container">
   <h1 class ="some-in-the-picture-title" >כמה בתמונה?</h1>
   <h3>צעדים: <span id="steps">0</span></h3>
-</div>
+
 <section id="{{ game.id }}">
 {% for item in items %}
     {% if forloop.first %}
@@ -44,7 +44,14 @@
 </div>
 
 </section>
+</div>
+    <div class="container text-center" style="display: none; padding-top: 250px;">
 
+        <h1 style="font-size: 4.5rem;">ברכותיי!</h1>
+        <h2>הצלחת לסיים את המשחק</h2>
+        <br>
+        <a href="{% url 'someInThePictureGame' items.first.subject.id %}"><button type="button" class="btn btn-outline-success btn-lg">להמשיך לשחק</button></a>
+    </div>
 
 
 

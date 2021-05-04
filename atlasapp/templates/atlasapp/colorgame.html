@@ -5,9 +5,12 @@
 <link href="{% static '/CSS/colorgame.css' %}" rel="stylesheet">
 <title>באיזה צבע</title>
 
+
 <div class="container text-center">
     <h1>באיזה צבע</h1>
     <h3>צעדים: <span id="steps"> 0</span></h3>
+<section id="{{ game.id }}">
+
 
     {% for item in items %}
     {% if forloop.first %}
@@ -82,6 +85,16 @@
                 <source src="{% static 'audio/blue.m4a' %}" type="audio/mp3">
             </audio>
         </div>
+</div>
+    </section>
+</div>
 
 
-        {% endblock %}
+    <div class="container text-center" style="display: none; padding-top: 250px;">
+
+        <h1 style="font-size: 4.5rem;">ברכותיי!</h1>
+        <h2>הצלחת לסיים את המשחק</h2>
+        <br>
+        <a href="{% url 'colorgame' items.first.subject.id %}"><button type="button" class="btn btn-outline-success btn-lg">להמשיך לשחק</button></a>
+    </div>
+    {% endblock %}
