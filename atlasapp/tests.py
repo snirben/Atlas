@@ -86,6 +86,36 @@ class SubSubjectTestCreate(TestCase):
         subSubject = SubSubject.objects.get(name="test_subSubject_name")
         self.assertEqual(subSubject.name, "test_subSubject_name")
 
+class ItemTestCreate(TestCase):
+
+    def setUp(self):
+        self.item = Item.objects.get_or_create(
+            subject='test_item_subject',
+            color='test_item_color',
+            gametype='test_item_gametype',
+            image='test_item_image',
+            audio='test_item_audio',
+        )
+        self.Item[0].save()
+
+    def test_check_Item_is_created(self):
+         item = Item.objects.get(subject ="test_item_subject")
+         self.assertEqual(item.subject, "test_item_subject")
+
+
+class GameTestCreate(TestCase):
+
+    def setUp(self):
+        self.game = Game.objects.get_or_create(
+            user ='test_game_user',
+            created_at='test_game_created_at',
+            steps='test_game_steps',
+        )
+        self.game[0].save()
+
+    def test_check_Game_is_created(self):
+        game = Game.objects.get(name="test_game_user")
+        self.assertEqual(game.user, "test_game_user")
 
 class testUrl(TestCase):
     def setUp(self):
@@ -100,170 +130,288 @@ class testUrl(TestCase):
 
     # ------------------------------------------------------------------------------#
     def test_studycategoryUrl_loading_ok(self):
-        response = reverse('urlss : studycategory')
-        self.assertEqual(response, '/urlss/studycategory')
+        response = reverse('studycategory')
+        self.assertEqual(response, '/studycategory')
 
     def test_studycategoryUrl_loading_notOk(self):
-        response = reverse('urlss : studycategory')
-        self.assertNotEqual(response, '/urlss/not_studycategory')
+        response = reverse('studycategory')
+        self.assertNotEqual(response, '/not_studycategory')
     # ------------------------------------------------------------------------------#
 
     # ------------------------------------------------------------------------------#
     def test_studySubcategoryUrl_loading_ok(self):
-        response = reverse('urlss : studysubcategory', kwargs={'id': '0'})
-        self.assertEqual(response, '/urlss/studysubcategory/0/')
+        response = reverse('studysubcategory', kwargs={'id': '0'})
+        self.assertEqual(response, '/studysubcategory/0/')
 
     def test_studySubcategoryUrl_loading_notOk(self):
-        response = reverse('urlss : studysubcategory')
-        self.assertNotEqual(response, '/urlss/studysubcategory/1/')
+        response = reverse('studysubcategory')
+        self.assertNotEqual(response, '/studysubcategory/1/')
     # ------------------------------------------------------------------------------#
 
     # ------------------------------------------------------------------------------#
     def test_studySubcategoryPickGameUrl_loading_ok(self):
-        response = reverse('urlss : studysubcategoryPickGame', kwargs={'id': '0'})
-        self.assertEqual(response, '/urlss/studysubcategory/pick_game/0/')
+        response = reverse('studysubcategoryPickGame', kwargs={'id': '0'})
+        self.assertEqual(response, '/studysubcategory/pick_game/0/')
 
     def test_studySubcategoryPickGameUrl_loading_notOk(self):
-        response = reverse('urlss : studysubcategoryPickGame', kwargs={'id': '0'})
-        self.assertNotEqual(response, '/urlss/studysubcategory/pick_game/1/')
+        response = reverse('studysubcategoryPickGame', kwargs={'id': '0'})
+        self.assertNotEqual(response, '/studysubcategory/pick_game/1/')
     # ------------------------------------------------------------------------------#
 
     # ------------------------------------------------------------------------------#
     def test_memoryGameUrl_loading_ok(self):
-        response = reverse('urlss : memoryGame', kwargs={'id': '0'})
-        self.assertEqual(response, 'urlss/memory_game/0/')
+        response = reverse('memoryGame', kwargs={'id': '0'})
+        self.assertEqual(response, 'appname/memory_game/0/')
 
     def test_memoryGameUrl_loading_notOk(self):
-        response = reverse('urlss : memoryGame', kwargs={'id': '0'})
-        self.assertNotEqual(response, 'urlss/memory_game/1/')
+        response = reverse('memoryGame', kwargs={'id': '0'})
+        self.assertNotEqual(response, 'appname/memory_game/1/')
     # ------------------------------------------------------------------------------#
 
     # ------------------------------------------------------------------------------#
     def test_someInThePictureView_loading_ok(self):
-        response = reverse('urlss : someInThePictureView', kwargs={'id': '0'})
-        self.assertEqual(response, 'urlss/someInThePicture/0/')
+        response = reverse('someInThePictureView', kwargs={'id': '0'})
+        self.assertEqual(response, 'appname/someInThePicture/0/')
 
     def test_someInThePictureView_loading_notOk(self):
-        response = reverse('urlss : someInThePictureView', kwargs={'id': '0'})
-        self.assertNotEqual(response, 'urlss/someInThePicture/1/')
+        response = reverse('someInThePictureView', kwargs={'id': '0'})
+        self.assertNotEqual(response, 'appname/someInThePicture/1/')
     # ------------------------------------------------------------------------------#
 
     # ------------------------------------------------------------------------------#
     def test_someInThePictureView_loading_ok(self):
-        response = reverse('urlss : someInThePictureView', kwargs={'id': '0'})
-        self.assertEqual(response, 'urlss/someInThePicture/0/')
+        response = reverse('someInThePictureView', kwargs={'id': '0'})
+        self.assertEqual(response, 'appname/someInThePicture/0/')
 
     def test_someInThePictureView_loading_notOk(self):
-        response = reverse('urlss : someInThePictureView', kwargs={'id': '0'})
-        self.assertNotEqual(response, 'urlss/someInThePicture/1/')
+        response = reverse('someInThePictureView', kwargs={'id': '0'})
+        self.assertNotEqual(response, 'appname/someInThePicture/1/')
     # ------------------------------------------------------------------------------#
 
     # ------------------------------------------------------------------------------#
     def test_colorGame_loading_ok(self):
-        response = reverse('urlss : colorGame', kwargs={'id': '0'})
-        self.assertEqual(response, 'urlss/colorgame/0/')
+        response = reverse('colorGame', kwargs={'id': '0'})
+        self.assertEqual(response, 'appname/colorgame/0/')
 
     def test_colorGame_loading_notOk(self):
-        response = reverse('urlss : colorGame', kwargs={'id': '0'})
-        self.assertNotEqual(response, 'urlss/colorgame/1/')
+        response = reverse('colorGame', kwargs={'id': '0'})
+        self.assertNotEqual(response, 'appname/colorgame/1/')
     # ------------------------------------------------------------------------------#
 
     # ------------------------------------------------------------------------------#
     def test_login_loading_ok(self):
-        response = reverse('urlss : login')
-        self.assertEqual(response, 'urlss/')
+        response = reverse('login')
+        self.assertEqual(response, 'appname/')
 
     def test_login_loading_notOk(self):
-        response = reverse('urlss : login')
-        self.assertNotEqual(response, 'urlss/not')
+        response = reverse('login')
+        self.assertNotEqual(response, 'appname/not')
     # ------------------------------------------------------------------------------#
 
     # ------------------------------------------------------------------------------#
     def test_register_loading_ok(self):
-        response = reverse('urlss : register')
-        self.assertEqual(response, 'urlss/register')
+        response = reverse('register')
+        self.assertEqual(response, 'appname/register')
 
     def test_register_loading_notOk(self):
-        response = reverse('urlss : login')
-        self.assertNotEqual(response, 'urlss/not_register')
+        response = reverse('login')
+        self.assertNotEqual(response, 'appname/not_register')
     # ------------------------------------------------------------------------------#
 
     # ------------------------------------------------------------------------------#
     def test_home_loading_ok(self):
-        response = reverse('urlss : home')
-        self.assertEqual(response, 'urlss/home')
+        response = reverse('home')
+        self.assertEqual(response, 'appname/home')
 
     def test_home_loading_notOk(self):
-        response = reverse('urlss : home')
-        self.assertNotEqual(response, 'urlss/not_home')
+        response = reverse('home')
+        self.assertNotEqual(response, 'appname/not_home')
     # ------------------------------------------------------------------------------#
 
     # ------------------------------------------------------------------------------#
     def test_SupervisorHome_loading_ok(self):
-        response = reverse('urlss : SupervisorHome')
-        self.assertEqual(response, 'urlss/SupervisorHome')
+        response = reverse('SupervisorHome')
+        self.assertEqual(response, 'appname/SupervisorHome')
 
     def test_SupervisorHome_loading_notOk(self):
-        response = reverse('urlss : SupervisorHome')
-        self.assertNotEqual(response, 'urlss/not_SupervisorHome')
+        response = reverse('SupervisorHome')
+        self.assertNotEqual(response, 'appname/not_SupervisorHome')
     # ------------------------------------------------------------------------------#
 
     # ------------------------------------------------------------------------------#
     def test_childHome_loading_ok(self):
-        response = reverse('urlss : childHome')
-        self.assertEqual(response, 'urlss/childHome')
+        response = reverse('childHome')
+        self.assertEqual(response, 'appname/childHome')
 
     def test_childHome_loading_notOk(self):
-        response = reverse('urlss : childHome')
-        self.assertNotEqual(response, 'urlss/not_childHome')
+        response = reverse('childHome')
+        self.assertNotEqual(response, 'appname/not_childHome')
     # ------------------------------------------------------------------------------#
 
     # ------------------------------------------------------------------------------#
     def test_GannetHome_loading_ok(self):
-        response = reverse('urlss : GannetHome')
-        self.assertEqual(response, 'urlss/GannetHome')
+        response = reverse('GannetHome')
+        self.assertEqual(response, 'appname/GannetHome')
 
     def test_GannetHome_loading_notOk(self):
-        response = reverse('urlss : GannetHome')
-        self.assertNotEqual(response, 'urlss/not_GannetHome')
+        response = reverse('GannetHome')
+        self.assertNotEqual(response, 'appname/not_GannetHome')
     # ------------------------------------------------------------------------------#
 
     # ------------------------------------------------------------------------------#
     def test_logout_loading_ok(self):
-        response = reverse('urlss : logout')
-        self.assertEqual(response, 'urlss/logout')
+        response = reverse('logout')
+        self.assertEqual(response, 'appname/logout')
 
     def test_logout_loading_notOk(self):
-        response = reverse('urlss : logout')
-        self.assertNotEqual(response, 'urlss/not_logout')
+        response = reverse('logout')
+        self.assertNotEqual(response, 'appname/not_logout')
     # ------------------------------------------------------------------------------#
 
     # ------------------------------------------------------------------------------#
     def test_manageMissions_loading_ok(self):
-        response = reverse('urlss : manageMissions')
-        self.assertEqual(response, 'urlss/manageMissions')
+        response = reverse('manageMissions')
+        self.assertEqual(response, 'appname/manageMissions')
 
     def test_manageMissions_loading_notOk(self):
-        response = reverse('urlss : manageMissions')
-        self.assertNotEqual(response, 'urlss/not_manageMissions')
+        response = reverse('manageMissions')
+        self.assertNotEqual(response, 'appname/not_manageMissions')
     # ------------------------------------------------------------------------------#
 
     # ------------------------------------------------------------------------------#
     def test_sManageUsers_loading_ok(self):
-        response = reverse('urlss : sManageUsers')
-        self.assertEqual(response, 'urlss/sManageUsers')
+        response = reverse('sManageUsers')
+        self.assertEqual(response, 'appname/sManageUsers')
 
     def test_sManageUsers_loading_notOk(self):
-        response = reverse('urlss : sManageUsers')
-        self.assertNotEqual(response, 'urlss/not_sManageUsers')
+        response = reverse('sManageUsers')
+        self.assertNotEqual(response, 'appname/not_sManageUsers')
     # ------------------------------------------------------------------------------#
 
     # ------------------------------------------------------------------------------#
     def test_sManageUsers_loading_ok(self):
-        response = reverse('urlss : sManageUsers')
-        self.assertEqual(response, 'urlss/sManageUsers')
+        response = reverse('sManageUsers')
+        self.assertEqual(response, '/sManageUsers')
 
     def test_sManageUsers_loading_notOk(self):
-        response = reverse('urlss : sManageUsers')
-        self.assertNotEqual(response, 'urlss/not_sManageUsers')
+        response = reverse('sManageUsers')
+        self.assertNotEqual(response, '/not_sManageUsers')
     # ------------------------------------------------------------------------------#
+
+    def test_save_color_game_loading_ok(self):
+        response = reverse('save-colorgame-result')
+        self.assertEqual(response, '/ajax/save-colorgame-result')
+
+    def test_save_color_game_loading_notOk(self):
+        response = reverse('save-colorgame-result')
+        self.assertNotEqual(response, '/ajax/not_save-colorgame-result')
+
+    # ------------------------------------------------------------------------------#
+
+    def test_save_game_result_loading_ok(self):
+        response = reverse('save-game-result')
+        self.assertEqual(response, '/ajax/save-game-result')
+
+    def test_save_game_result_loading_notOk(self):
+        response = reverse('save-game-result')
+        self.assertNotEqual(response, '/ajax/not_save-game-result')
+
+    # ------------------------------------------------------------------------------#
+
+    def test_someInThePictureGame_loading_ok(self):
+        response = reverse('someInThePictureGame', kwargs={'id': '0'})
+        self.assertEqual(response, '/someInThePictureGame/0/')
+
+    def test_someInThePictureGame_loading_notOk(self):
+        response = reverse('someInThePictureGame', kwargs={'id': '0'})
+        self.assertNotEqual(response, '/someInThePictureGame/1/')
+
+    # ------------------------------------------------------------------------------#
+
+    def test_save_someinthepicture_result_loading_ok(self):
+        response = reverse('save-someinthepicture-result')
+        self.assertEqual(response, '/ajax/save-someinthepicture-result')
+
+    def test_save_someinthepicture_result_loading_notOk(self):
+        response = reverse('save-someinthepicture-result')
+        self.assertNotEqual(response, '/ajax/not_save-someinthepicture-result')
+
+    # ------------------------------------------------------------------------------#
+
+    def test_gManageMissions_loading_ok(self):
+        response = reverse('gManageMissions')
+        self.assertEqual(response, '/gManageMissions')
+
+    def test_gManageMissions_loading_notOk(self):
+        response = reverse('gManageMissions')
+        self.assertNotEqual(response, '/not_gManageMissions')
+
+    # ------------------------------------------------------------------------------#
+
+    def test_gAddItem_loading_ok(self):
+        response = reverse('gAddItem')
+        self.assertEqual(response, '/gAddItem')
+
+    def test_gAddItem_loading_notOk(self):
+        response = reverse('gAddItem')
+        self.assertNotEqual(response, '/not_gAddItem')
+
+    # ------------------------------------------------------------------------------#
+
+    def test_addMissions_loading_ok(self):
+        response = reverse('addMissions')
+        self.assertEqual(response, '/addMissions')
+
+    def test_addMissions_loading_notOk(self):
+        response = reverse('addMissions')
+        self.assertNotEqual(response, '/not_addMissions')
+
+    # ------------------------------------------------------------------------------#
+
+    def test_gAddUser_loading_ok(self):
+        response = reverse('gAddUser')
+        self.assertEqual(response, '/gAddUser')
+
+    def test_gAddUser_loading_notOk(self):
+        response = reverse('gAddUser')
+        self.assertNotEqual(response, '/not_gAddUser')
+
+    # ------------------------------------------------------------------------------#
+
+    def test_gManageUsers_loading_ok(self):
+        response = reverse('gManageUsers')
+        self.assertEqual(response, '/gManageUsers')
+
+    def test_gManageUsers_loading_notOk(self):
+        response = reverse('gManageUsers')
+        self.assertNotEqual(response, '/not_gManageUsers')
+
+    # ------------------------------------------------------------------------------#
+
+    def test_bidudim_loading_ok(self):
+        response = reverse('bidudim')
+        self.assertEqual(response, '/bidudim')
+
+    def test_bidudim_loading_notOk(self):
+        response = reverse('bidudim')
+        self.assertNotEqual(response, '/not_bidudim')
+
+    # ------------------------------------------------------------------------------#
+
+    def test_sAddUser_loading_ok(self):
+        response = reverse('sAddUser')
+        self.assertEqual(response, '/sAddUser')
+
+    def test_sAddUser_loading_notOk(self):
+        response = reverse('sAddUser')
+        self.assertNotEqual(response, '/not_sAddUser')
+
+    # ------------------------------------------------------------------------------#
+
+    def test_gManageGames_loading_ok(self):
+        response = reverse('gManageGames')
+        self.assertEqual(response, '/gManageGames')
+
+    def test_gManageGames_loading_notOk(self):
+        response = reverse('gManageGames')
+        self.assertNotEqual(response, '/not_gManageGames')
