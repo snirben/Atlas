@@ -1,0 +1,60 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="{% static '/CSS/someInThePictureStyle.css' %}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static '/JS/someInThePictureGame.js' %}"></script>
+
+
+<title>כמה בתמונה</title>
+<div class="container">
+  <h1 class ="some-in-the-picture-title" >כמה בתמונה?</h1>
+  <h3>צעדים: <span id="steps">0</span></h3>
+
+<section id="{{ game.id }}">
+{% for item in items %}
+    {% if forloop.first %}
+        <div class="pic-group" id="{{ item.id }}">
+    {% else %}
+        <div class="pic-group" id="{{ item.id }}" style="display: none">
+    {% endif %}
+        <div class="card-container"  dataframwork="">
+        <img class="" src="{{item.image.url}}">
+        </div>
+</div>
+{% endfor %}
+
+<audio src="{% static 'audio/mario_sound.wav' %}" id="start-game-audion" autoplay="autoplay"></audio>
+
+<div class="buttons">
+<div class="btn-group btn-group-lg" id="buttons-group" role="group" aria-label="First group">
+    <button type="button" class="btn btn-info btn-group-lg" id="10">10</button>
+    <button type="button" class="btn btn-info btn-group-lg" id="9">9</button>
+    <button type="button" class="btn btn-info btn-group-lg" id="8">8</button>
+    <button type="button" class="btn btn-info btn-group-lg" id="7">7</button>
+    <button type="button" class="btn btn-info btn-group-lg" id="6">6</button>
+    <button type="button" class="btn btn-info btn-group-lg" id="5">5</button>
+    <button type="button" class="btn btn-info btn-group-lg" id="4">4</button>
+    <button type="button" class="btn btn-info btn-group-lg" id="3">3</button>
+    <button type="button" class="btn btn-info btn-group-lg" id="2">2</button>
+    <button type="button" class="btn btn-info btn-group-lg" id="1">1</button>
+
+</div>
+</div>
+
+</section>
+</div>
+    <div class="container text-center" style="display: none; padding-top: 250px;">
+
+        <h1 style="font-size: 4.5rem;">ברכותיי!</h1>
+        <h2>הצלחת לסיים את המשחק</h2>
+        <br>
+        <a href="{% url 'childhome' %}"><button type="button" class="btn btn-outline-danger btn-lg">סיים משחק</button></a>
+        <a href="{% url 'someInThePictureGame' items.first.subject.id %}"><button type="button" class="btn btn-outline-success btn-lg">להמשיך לשחק</button></a>
+    </div>
+
+
+
+
+{% endblock %}

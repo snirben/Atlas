@@ -31,20 +31,35 @@ class Mission(models.Model):
 
 
 class Subject(models.Model):
-    gamesubject = models.CharField(max_length=50, null=False)
+    name = models.CharField(max_length=50, null=False)
+    image = models.ImageField(upload_to="image", default="media/image/image.jpg")
+    audio = models.FileField(upload_to="audio", default="media/audio/default.mp3")
 
     def __str__(self):
-        return '{}'.format(self.gamesubject)
+        return '{}'.format(self.name)
 
 class SubSubject(models.Model):
-    subsubject = models.CharField(max_length=50, null=False);
+    name = models.CharField(max_length=50, null=False);
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE);
     gametype = models.CharField(choices=GAME_CHOICES, max_length=30, default=1)
+    image = models.ImageField(upload_to="image", default="media/image/image.jpg")
+    audio = models.FileField(upload_to="audio", default="media/audio/default.mp3")
 
-
+    def __str__(self):
+        return '{}'.format(self.name)
 
 class Item(models.Model):
-    image = models.ImageField(upload_to="image")
-    audio = models.FileField(upload_to="audio")
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    gametype = models.CharField(choices=COLOR_CHOICES, max_length=30 ,default=9)
+    image = models.ImageField(upload_to="image", default="media/image/image.jpg")
+    audio = models.FileField(upload_to="audio", default="media/audio/default.mp3")
+    subject = models.ForeignKey(SubSubject, on_delete=models.CASCADE)
+    gametype = models.CharField(choices=GAME_CHOICES, max_length=30 ,default=9)
+    color = models.CharField(choices=COLOR_CHOICES, max_length=30, default=9)
+
+    def __str__(self):
+        return '{}'.format(self.subject)
+
+class Game(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    steps = models.IntegerField(default=0)
+

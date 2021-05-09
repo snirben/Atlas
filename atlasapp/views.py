@@ -3,13 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db import models
+import random
 
 from atlasapp.forms import AddUserForm, AddMissionForm, AddItemForm
 from atlasapp.models import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 # Create your views here.
-from django.http import HttpResponse
+from django.http import JsonResponse
 
 
 @login_required
@@ -32,6 +33,9 @@ def loginpage (request):
         elif user.role == 1:
             login(request, user)
             return redirect('GannetHome')
+        elif user.role == 2:
+            login(request, user)
+            return redirect('childhome')
         elif user is not None:
             login(request, user)
             return redirect('home')
@@ -204,3 +208,81 @@ def get_mission_done(request, part_id = None):
     obj.done = True
     obj.save()
     return redirect('gManageMissions')
+
+@login_required
+def childhome (request):
+    context = {}
+    return render(request, 'atlasapp/childhome.html', context)
+
+@login_required
+def studycategory(request):
+    subjects = Subject.objects.all()
+    context = {'subjects':subjects}
+    return render(request, 'atlasapp/studycategory.html', context)
+
+@login_required
+def studysubcategory(request, part_id):
+    subject = Subject.objects.get(id=part_id)
+    SubSubjects = SubSubject.objects.filter(subject_id = subject.id)
+    context = {'SubSubjects':SubSubjects}
+    return render(request, 'atlasapp/studysubcategory.html', context)
+
+@login_required
+def pickgame(request, id):
+    subsubject = SubSubject.objects.get(id=id)
+    SubSubjects = SubSubject.objects.filter(name = subsubject.name)
+    context = {'SubSubjects':SubSubjects}
+    return render(request, 'atlasapp/pickgame.html', context)
+
+@login_required
+def memory_game(request,subsubject_id):
+    items= Item.objects.filter(subject_id = subsubject_id)
+    game = Game(user=request.user)
+    game.save()
+    context = {'items':items, 'game': game}
+    return render(request, 'atlasapp/memory_game.html', context)
+
+@login_required
+def someInThePicture_view(request,subject_id):
+    context = {'subject_id':subject_id}
+    return render(request, 'atlasapp/someInThePicture.html', context)
+
+@login_required
+def someInThePictureGame(request,subject_id):
+    items=Item.objects.filter(subject_id=subject_id)
+    game = Game(user=request.user)
+    game.save()
+    context = {'items': items, 'game':game}
+    return render(request, 'atlasapp/someInThePictureGame.html', context)
+
+@login_required
+def colorgame(request,subsubject_id):
+    items= Item.objects.filter(subject_id = subsubject_id)
+    game = Game(user=request.user)
+    game.save()
+    context = {'items':items, 'game': game}
+    return render(request, 'atlasapp/colorgame.html', context)
+
+def end_memory_game(request):
+    game_id = request.GET.get('game_id')
+    steps = request.GET.get('steps')
+    game = get_object_or_404(Game,pk=game_id)
+    game.steps = steps
+    game.save()
+    return JsonResponse(data={},status=200)
+
+def endsomeinthepicturegame(request):
+    game_id = request.GET.get('game_id')
+    steps = request.GET.get('steps')
+    game = get_object_or_404(Game, pk=game_id)
+    game.steps = steps
+    game.save()
+    return JsonResponse(data={}, status=200)
+
+def end_color_game(request):
+    game_id = request.GET.get('game_id')
+    steps = request.GET.get('steps')
+    game = get_object_or_404(Game, pk=game_id)
+    game.steps = steps
+    game.save()
+    return JsonResponse(data={}, status=200)

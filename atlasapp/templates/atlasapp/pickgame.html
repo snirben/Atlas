@@ -1,0 +1,61 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="{% static '/CSS/childhome.css' %}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static '/JS/script.js' %}"></script>
+<title>בחירת משחק לימוד</title>
+
+<div class="container d-flex justify-content-center">
+  <div class="card-deck">
+    {% for subsubject in SubSubjects %}
+        <div class="card-transparent">
+    <img class="img-thumbnail" src="{{ subsubject.image.url }}" style="width: 300px;height: 300px;" alt="Card image cap">
+    <div class="card-body">
+     <a id="1" href="{% url 'memory_game' subsubject.id %}"><h2 class="card-title" id="categoryname">משחק הזיכרון</h2></a>
+
+    </div>
+  </div>
+      <div style="display: none;">
+               <audio id="audio-1" controls>
+                   <source src="{{ subsubject.audio.url }}" type="audio/mp3">
+                </audio>
+      </div>
+
+              <div class="card-transparent">
+    <img class="img-thumbnail" src="{{ subsubject.image.url }}" style="width: 300px;height: 300px;" alt="Card image cap">
+    <div class="card-body">
+     <a id="2" href='{% url "someInThePicture" subsubject.id %}'><h2 class="card-title" id="categoryname">כמה בתמונה</h2></a>
+
+    </div>
+  </div>
+      <div style="display: none;">
+               <audio id="audio-2" controls>
+                   <source src="{{ subsubject.audio.url }}" type="audio/mp3">
+                </audio>
+      </div>
+
+              <div class="card-transparent">
+    <img class="img-thumbnail" src="{{ subsubject.image.url }}" style="width: 300px;height: 300px;" alt="Card image cap">
+    <div class="card-body">
+     <a id="3" href='{% url "colorgame" subsubject.id %}'><h2 class="card-title" id="categoryname">באיזה צבע</h2></a>
+
+    </div>
+  </div>
+      <div style="display: none;">
+               <audio id="audio-3" controls>
+                   <source src="{{ subsubject.audio.url }}" type="audio/mp3">
+                </audio>
+      </div>
+
+
+
+
+        {% endfor %}
+</div>
+</div>
+
+
+
+{% endblock %} 

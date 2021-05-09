@@ -1,0 +1,46 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="{% static '/CSS/game.css' %}" rel="stylesheet">
+    <script src="{% static '/JS/game.js' %}"></script>
+
+<div class="container">
+<div class="text-center">
+    <h1>  משחק הזכרון</h1>
+    <h3> צעדים: <span id="steps">0 </span></h3>
+</div>
+ <section id="{{ game.id }}" class="memory-game">
+     {% for item in items %}
+     <div class="memory-card" id="{{ item.id }}" data-framework="{{ item.id}}">
+         <img class="front-face" src="{{item.image.url}}">
+         <img class="back-face" src="{% static 'images/backv4.png'%}">
+      <div style="display: none;">
+               <audio id="audio-{{ item.id }}" controls>
+                   <source src="{{ item.audio.url }}" type="audio/mp3">
+                </audio>
+      </div>
+     </div>
+     {% endfor %}
+       {% for item in items %}
+     <div class="memory-card" id="{{ item.id }}" data-framework="{{ item.id}}">
+         <img class="front-face" src="{{item.image.url}}">
+         <img class="back-face" src="{% static 'images/backv4.png'%}">
+      <div style="display: none;">
+               <audio id="audio-{{ item.id }}" controls>
+                   <source src="{{ item.audio.url }}" type="audio/mp3">
+                </audio>
+      </div>
+     </div>
+     {% endfor %}
+ </section>
+</div>
+    <div class="container text-center" style="display: none; padding-top: 250px;">
+
+        <h1 style="font-size: 4.5rem;">ברכותיי!</h1>
+        <h2>הצלחת לסיים את המשחק</h2>
+        <br>
+        <a href="{% url 'childhome' %}"><button type="button" class="btn btn-outline-danger btn-lg">סיים משחק</button></a>
+        <a href="{% url 'memory_game' items.first.subject.id %}"><button type="button" class="btn btn-outline-success btn-lg">להמשיך לשחק</button></a>
+    </div>
+    {% endblock %}

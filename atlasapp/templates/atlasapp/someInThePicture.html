@@ -1,0 +1,23 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="{% static '/CSS/someInThePictureStyle.css' %}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<title>כמה בתמונה</title>
+
+<div class="container">
+  <h1 class ="some-in-the-picture-title">כמה בתמונה</h1>
+</div>
+
+    <div class="startplaybutton">
+        <a class="btn btn-outline-info btn-lg" href="{% url 'someInThePictureGame'  subject_id %}">התחל לשחק</a>
+    </div>
+
+
+
+
+
+{% endblock %}

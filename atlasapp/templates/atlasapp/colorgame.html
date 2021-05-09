@@ -1,0 +1,101 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+<script src="{% static '/JS/colorgame.js' %}"></script>
+<link href="{% static '/CSS/colorgame.css' %}" rel="stylesheet">
+<title>באיזה צבע</title>
+
+
+<div class="container text-center">
+    <h1>באיזה צבע</h1>
+    <h3>צעדים: <span id="steps"> 0</span></h3>
+<section id="{{ game.id }}">
+
+
+    {% for item in items %}
+    {% if forloop.first %}
+    <div id='main_img'>
+        {% else %}
+        <div id='main_img' style='display:none'>
+            {% endif %}
+            <img class="img-thumbnail" src="{{item.image.url}}" alt="Italian Trulli"
+                 style="width: 250px;height: 250px;">
+
+
+            <br>
+            <div id="{{item.color}}" class="container text-center" style="width: 300px;height: 250px;">
+                <button id="blue" type="button" class="btn btn-primary">כחול</button>
+                <button id="green" type="green" class="btn btn-success">ירוק</button>
+                <button id="red" type="red" class="btn btn-danger">אדום</button>
+                <button id="orange" type="orange" class="btn btn-warning">כתום</button>
+                <button id="black" type="black" class="btn btn-dark">שחור</button>
+                <button id="white" type="white" class="btn btn-light">לבן</button>
+                <button id="yellow" type="yellow" class="btn btn-yellow">צהוב</button>
+                <button id="pink" type="pink" class="btn btn-pink">ורוד</button>
+                <button id="purple" type="purple" class="btn btn-purple">סגול</button>
+
+
+            </div>
+        </div>
+
+        {% endfor %}
+
+        <div style="display: none;">
+            <audio id="audio-red" controls>
+                <source src="{% static 'audio/red.m4a' %}" type="audio/mp3">
+            </audio>
+        </div>
+        <div style="display: none;">
+            <audio id="audio-yellow" controls>
+                <source src="{% static 'audio/yellow.m4a' %}" type="audio/mp3">
+            </audio>
+        </div>
+        <div style="display: none;">
+            <audio id="audio-green" controls>
+                <source src="{% static 'audio/green.m4a' %}" type="audio/mp3">
+            </audio>
+        </div>
+        <div style="display: none;">
+            <audio id="audio-purple" controls>
+                <source src="{% static 'audio/purple.m4a' %}" type="audio/mp3">
+            </audio>
+        </div>
+        <div style="display: none;">
+            <audio id="audio-pink" controls>
+                <source src="{% static 'audio/pink.m4a' %}" type="audio/mp3">
+            </audio>
+        </div>
+        <div style="display: none;">
+            <audio id="audio-black" controls>
+                <source src="{% static 'audio/black.m4a' %}" type="audio/mp3">
+            </audio>
+        </div>
+        <div style="display: none;">
+            <audio id="audio-white" controls>
+                <source src="{% static 'audio/white.m4a' %}" type="audio/mp3">
+            </audio>
+        </div>
+        <div style="display: none;">
+            <audio id="audio-orange" controls>
+                <source src="{% static 'audio/orange.m4a' %}" type="audio/mp3">
+            </audio>
+        </div>
+        <div style="display: none;">
+            <audio id="audio-blue" controls>
+                <source src="{% static 'audio/blue.m4a' %}" type="audio/mp3">
+            </audio>
+        </div>
+</div>
+    </section>
+</div>
+
+
+    <div class="container text-center" style="display: none; padding-top: 250px;">
+
+        <h1 style="font-size: 4.5rem;">ברכותיי!</h1>
+        <h2>הצלחת לסיים את המשחק</h2>
+        <br>
+        <a href="{% url 'childhome' %}"><button type="button" class="btn btn-outline-danger btn-lg">סיים משחק</button></a>
+        <a href="{% url 'colorgame' items.first.subject.id %}"><button type="button" class="btn btn-outline-success btn-lg">להמשיך לשחק</button></a>
+    </div>
+    {% endblock %}
