@@ -9,20 +9,23 @@ from atlasapp.forms import AddUserForm, AddMissionForm, AddItemForm
 from atlasapp.models import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-# Create your views here.
 from django.http import JsonResponse
 
 
+
+
 @login_required
-def home (request):
+def home(request):
     context = {}
     return render(request, 'atlasapp/home.html', context)
 
-def registerpage (request):
-    context={}
-    return render(request,'atlasapp/register.html',context)
 
-def loginpage (request):
+def registerpage(request):
+    context = {}
+    return render(request, 'atlasapp/register.html', context)
+
+
+def loginpage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -44,14 +47,17 @@ def loginpage (request):
                 request, messages.ERROR, "שם משתמש או סיסמא לא נכונים"
             )
     context = {}
-    return render(request,'atlasapp/login.html',context)
+    return render(request, 'atlasapp/login.html', context)
 
-def SupervisorHome (request):
+
+def SupervisorHome(request):
     missions = Mission.objects.all()
-    context = {'missions': missions}
+    gananot = User.objects.filter(role=1)
+    context = {'missions': missions, 'gananot': gananot}
     return render(request, 'atlasapp/SupervisorHome.html', context)
 
-def GannetHome (request):
+
+def GannetHome(request):
     context = {}
     return render(request, 'atlasapp/GannetHome.html', context)
 
@@ -63,13 +69,15 @@ def logout_view(request):
 
 def missions_view(request):
     missions = Mission.objects.all()
-    context = {'missions' : missions}
-    return render(request, 'atlasapp\manageMissions.html',context)
+    context = {'missions': missions}
+    return render(request, 'atlasapp\manageMissions.html', context)
 
-def delete_mission(request, part_id = None):
+
+def delete_mission(request, part_id=None):
     obj = Mission.objects.get(id=part_id)
     obj.delete()
     return redirect('manageMissions')
+
 
 def createMission(request):
     form = AddMissionForm(request.POST or None)
@@ -81,15 +89,18 @@ def createMission(request):
         form = AddMissionForm()
     return render(request, 'atlasapp/addMissions.html', {'form': form})
 
+
 def games_view(request):
     items = Item.objects.all()
-    context = {'missions' : items}
-    return render(request, 'atlasapp\gManageGames.html',context)
+    context = {'missions': items}
+    return render(request, 'atlasapp\gManageGames.html', context)
 
-def delete_item(request, part_id = None):
+
+def delete_item(request, part_id=None):
     obj = Item.objects.get(id=part_id)
     obj.delete()
     return redirect('gManageGames')
+
 
 def createItem(request):
     form = AddItemForm(request.POST, request.FILES)
@@ -141,6 +152,7 @@ def edituser(request, id):
         context = {'form': form}
         return render(request, 'atlasapp/sEditUser.html', context)
 
+
 def editItem(request, id):
     obj = get_object_or_404(Item, id=id)
     form = AddItemForm(request.POST, request.FILES, instance=obj)
@@ -162,10 +174,12 @@ def bidudim(request):
     context = {'gans': gans}
     return render(request, 'atlasapp/bidudim.html', context)
 
+
 def gManageUsers(request):
     users = User.objects.all()
-    context = {'users':users}
+    context = {'users': users}
     return render(request, 'atlasapp/gManageUsers.html', context)
+
 
 def create_child(request):
     form = AddUserForm(request.POST or None)
@@ -176,10 +190,12 @@ def create_child(request):
         form = AddUserForm()
     return render(request, 'atlasapp/gAddUser.html', {'form': form})
 
+
 def delete_child(request, part_id=None):
     obj = User.objects.get(id=part_id)
     obj.delete()
     return redirect('gManageUsers')
+
 
 @login_required
 def edit_child(request, id):
@@ -197,79 +213,90 @@ def edit_child(request, id):
         context = {'form': form}
         return render(request, 'atlasapp/gEditUser.html', context)
 
+
 def missions_view_gannet(request):
     missions = Mission.objects.all()
-    context = {'missions' : missions}
-    return render(request, 'atlasapp\gManageMissions.html',context)
+    context = {'missions': missions}
+    return render(request, 'atlasapp\gManageMissions.html', context)
 
 
-def get_mission_done(request, part_id = None):
+def get_mission_done(request, part_id=None):
     obj = Mission.objects.get(id=part_id)
     obj.done = True
     obj.save()
     return redirect('gManageMissions')
 
+
 @login_required
-def childhome (request):
+def childhome(request):
     context = {}
     return render(request, 'atlasapp/childhome.html', context)
+
 
 @login_required
 def studycategory(request):
     subjects = Subject.objects.all()
-    context = {'subjects':subjects}
+    context = {'subjects': subjects}
     return render(request, 'atlasapp/studycategory.html', context)
+
 
 @login_required
 def studysubcategory(request, part_id):
     subject = Subject.objects.get(id=part_id)
-    SubSubjects = SubSubject.objects.filter(subject_id = subject.id)
-    context = {'SubSubjects':SubSubjects}
+    SubSubjects = SubSubject.objects.filter(subject_id=subject.id)
+    context = {'SubSubjects': SubSubjects}
     return render(request, 'atlasapp/studysubcategory.html', context)
+
 
 @login_required
 def pickgame(request, id):
     subsubject = SubSubject.objects.get(id=id)
-    SubSubjects = SubSubject.objects.filter(name = subsubject.name)
-    context = {'SubSubjects':SubSubjects}
+    SubSubjects = SubSubject.objects.filter(name=subsubject.name)
+    context = {'SubSubjects': SubSubjects}
     return render(request, 'atlasapp/pickgame.html', context)
 
+
 @login_required
-def memory_game(request,subsubject_id):
-    items= Item.objects.filter(subject_id = subsubject_id)
+def memory_game(request, subsubject_id):
+    items = Item.objects.filter(subject_id=subsubject_id)
     game = Game(user=request.user)
     game.save()
-    context = {'items':items, 'game': game}
+    context = {'items': items, 'game': game}
     return render(request, 'atlasapp/memory_game.html', context)
 
+
 @login_required
-def someInThePicture_view(request,subject_id):
-    context = {'subject_id':subject_id}
+def someInThePicture_view(request, subject_id):
+    context = {'subject_id': subject_id}
     return render(request, 'atlasapp/someInThePicture.html', context)
 
-@login_required
-def someInThePictureGame(request,subject_id):
-    items=Item.objects.filter(subject_id=subject_id)
-    game = Game(user=request.user)
-    game.save()
-    context = {'items': items, 'game':game}
-    return render(request, 'atlasapp/someInThePictureGame.html', context)
 
 @login_required
-def colorgame(request,subsubject_id):
-    items= Item.objects.filter(subject_id = subsubject_id)
+def someInThePictureGame(request, subject_id):
+    items = Item.objects.filter(subject_id=subject_id)
     game = Game(user=request.user)
     game.save()
-    context = {'items':items, 'game': game}
+    context = {'items': items, 'game': game}
+    return render(request, 'atlasapp/someInThePictureGame.html', context)
+
+
+@login_required
+def colorgame(request, subsubject_id):
+    items = Item.objects.filter(subject_id=subsubject_id)
+    game = Game(user=request.user)
+    game.save()
+    context = {'items': items, 'game': game}
     return render(request, 'atlasapp/colorgame.html', context)
+
 
 def end_memory_game(request):
     game_id = request.GET.get('game_id')
     steps = request.GET.get('steps')
-    game = get_object_or_404(Game,pk=game_id)
+    game = get_object_or_404(Game, pk=game_id)
     game.steps = steps
     game.save()
-    return JsonResponse(data={},status=200)
+    return JsonResponse(data={}, status=200)
+
 
 def endsomeinthepicturegame(request):
     game_id = request.GET.get('game_id')
@@ -278,6 +305,7 @@ def endsomeinthepicturegame(request):
     game.steps = steps
     game.save()
     return JsonResponse(data={}, status=200)
+
 
 def end_color_game(request):
     game_id = request.GET.get('game_id')
