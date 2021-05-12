@@ -62,3 +62,12 @@ class Game(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     steps = models.IntegerField(default=0)
+
+class Complain(models.Model):
+    text = models.TextField(max_length=3000, null=False)
+    done = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    datetime = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return '{}'.format(self.user)
