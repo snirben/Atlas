@@ -314,3 +314,15 @@ def end_color_game(request):
     game.steps = steps
     game.save()
     return JsonResponse(data={}, status=200)
+
+@login_required
+def sComplainpage_view(request):
+    complains = Complain.objects.all()
+    context = {'complains': complains}
+    return render(request, 'atlasapp/sComplainpage.html', context)
+
+def update_complain(request, part_id):
+    complain = Complain.objects.get(id=part_id)
+    complain.done = True
+    complain.save()
+    return sComplainpage_view(request)
