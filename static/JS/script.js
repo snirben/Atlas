@@ -4,3 +4,7 @@ $(document).click(function(event) {
     var audioElem = $('#'+name);
     audioElem[0].play();
 });
+
+$(document).ready( function () {
+    $('#gananotdata').DataTable();
+} );

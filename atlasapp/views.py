@@ -13,7 +13,6 @@ from django.http import JsonResponse
 
 
 
-
 @login_required
 def home(request):
     context = {}
@@ -314,3 +313,4 @@ def end_color_game(request):
     game.steps = steps
     game.save()
     return JsonResponse(data={}, status=200)
+

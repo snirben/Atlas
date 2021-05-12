@@ -41,4 +41,7 @@ urlpatterns = [
     path('ajax/save-game-result/', views.end_memory_game, name='save-game-result'),
     path('ajax/save-colorgame-result/', views.end_color_game, name='save-colorgame-result')
 
+
+
+
 ]
