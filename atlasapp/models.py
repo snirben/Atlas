@@ -67,7 +67,7 @@ class Complain(models.Model):
     text = models.TextField(max_length=3000, null=False)
     done = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    datetime = models.DateTimeField(auto_now=True)
+    datetime = models.DateTimeField()
 
     def __str__(self):
         return '{}'.format(self.user)
