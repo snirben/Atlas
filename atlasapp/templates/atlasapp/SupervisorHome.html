@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 {% load SupervisorHome %}
-<script src="{% static '/JS/gannetchart.js' %}"></script>
+<script src="{% static '/JS/script.js' %}"></script>
 <link href="{% static '/CSS/supervisorHome.css' %}" rel="stylesheet">
 <title>דף הבית-מפקחת</title>
 <div>
@@ -34,11 +34,14 @@
 </div>
 
 <div class="container">
-    <table class="table table-right table-sm">
+    <table class="table table-right table-sm" id="gananotdata">
+        <thead>
         <tr class="table-info">
             <th scope="col">שם הגן</th>
             <th scope="col">מספר צעדים</th>
         </tr>
+        </thead>
+        <tbody>
         {% for gannet in gananot %}
                 <tr>
                     <td>
@@ -49,7 +52,7 @@
                     </td>
                 </tr>
             {% endfor %}
-
+        </tbody>
     </table>
 </div>
 
