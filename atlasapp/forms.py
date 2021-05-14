@@ -1,10 +1,12 @@
+
+
 from django import forms
 from atlasapp.choices import *
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
-from .models import User, Mission, Item
-from django.forms import ModelForm
+from .models import User, Mission, Item, Complain
+from django.forms import ModelForm, DateInput
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import UpdateView
 
@@ -45,3 +47,17 @@ class AddItemForm(forms.ModelForm):
 
 class gameChoicesForm(forms.Form):
     gametype=forms.ChoiceField(choices = GAME_CHOICES, required=True)
+
+
+
+
+
+class AddComplainForm(forms.ModelForm):
+    def init(self, *args, **kwargs):
+        super(AddComplainForm, self).init(*args, **kwargs)
+
+    class Meta:
+        model = Complain
+        fields = ["text", "done", "user","date"]
+
+

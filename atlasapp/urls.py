@@ -41,7 +41,8 @@ urlpatterns = [
     path('ajax/save-game-result/', views.end_memory_game, name='save-game-result'),
     path('ajax/save-colorgame-result/', views.end_color_game, name='save-colorgame-result'),
     path('sComplainpage/', views.sComplainpage_view, name="sComplainpage"),
-    path('update-complain/<part_id>', views.update_complain, name="update_complain")
+    path('update-complain/<part_id>', views.update_complain, name="update_complain"),
+    path('addcomplain/', views.createcomplain, name="createcomplain")
 
 
 

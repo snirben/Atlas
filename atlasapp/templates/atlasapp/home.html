@@ -85,6 +85,17 @@
     </div>
     {% endif %}
 
+        {% if user.role == 2 %}
+           <div class="justify-content-end">
+        <ul class="navbar-nav mr-auto ">
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'createcomplain' %}">הוספת פנייה <span class="sr-only"></span></a>
+            </li>
+        </ul>
+    </div>
+    {% endif %}
+
 
     </div>
     <ul class="navbar-nav mr-auto ">
