@@ -1,0 +1,47 @@
+
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+
+<title>ניהול משימות</title>
+
+<div class="container">
+  <h2 class ="title" id="headers">דף תלונות</h2>
+
+    <table class="table table-center">
+
+        <tr class="table-info" >
+          <th  scope="col">פותח הפנייה</th>
+          <th  scope="col">תאריך</th>
+          <th  scope="col">התלונה</th>
+          <th  scope="col">סטטוס הפנייה</th>
+        </tr>
+        {% for item in complains%}
+                <tr>
+                    <td>
+                        {{item.user}}
+                    </td>
+                    <td>
+                        {{item.datetime}}
+                    </td>
+                    <td>
+                        {{item.text}}
+                    </td>
+                    <td>
+                        {% if item.done%} <button type="button" class="btn btn-secondary btn-sm" disabled>טופל</button>
+                        {% else %}<a type="button" class="btn btn-outline-success btn-sm" href="{% url 'update_complain' item.id %}">טופל</a>
+                        {% endif %}
+
+                    </td>
+                </tr>
+            {% endfor %}
+    </table>
+
+</div>
+
+
+
+
+</body>
+</html>
+{% endblock %}
