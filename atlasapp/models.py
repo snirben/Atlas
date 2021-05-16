@@ -1,3 +1,4 @@
+import datetime as datetime
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from atlasapp.choices import *
@@ -66,8 +67,6 @@ class Game(models.Model):
 class Complain(models.Model):
     text = models.TextField(max_length=3000, null=False)
     done = models.BooleanField(default=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    datetime = models.DateTimeField()
+    user = models.CharField(max_length=50, null=False)
+    date = models.DateField(("Date"), default=datetime.date.today)
 
-    def __str__(self):
-        return '{}'.format(self.user)

@@ -5,12 +5,11 @@ from django.contrib import messages
 from django.db import models
 import random
 
-from atlasapp.forms import AddUserForm, AddMissionForm, AddItemForm
+from atlasapp.forms import AddUserForm, AddMissionForm, AddItemForm, AddComplainForm
 from atlasapp.models import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.http import JsonResponse
-
 
 
 
@@ -104,7 +103,6 @@ def delete_item(request, part_id=None):
 
 def createItem(request):
     form = AddItemForm(request.POST, request.FILES)
-    print(request)
     if form.is_valid():
 
         form.save()
@@ -326,3 +324,13 @@ def update_complain(request, part_id):
     complain.done = True
     complain.save()
     return redirect('sComplainpage')
+
+def createcomplain(request):
+    form = AddComplainForm(request.POST or None)
+    user = Complain(user=request.user)
+    if form.is_valid():
+        form.save()
+        return redirect('childhome')
+    else:
+        form = AddComplainForm()
+    return render(request, 'atlasapp/addcomplain.html', {'form': form, 'user':user})
