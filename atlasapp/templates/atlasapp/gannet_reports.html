@@ -1,0 +1,39 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+
+
+    <div class="container">
+    <div class="float-right">
+    <input class="btn btn-info" type="button" value="הדפס" onClick="window.print()">
+    </div>
+        <table class="table table-center">
+
+            <tr class="table-info">
+                <th scope="col">שם הגן</th>
+                <th scope="col">שם הילד</th>
+                <th scope="col">מספר משחקים</th>
+                <th scope="col">מספר צעדים ממוצע למשחק</th>
+                <th>רמת התקדמות</th>
+                <th></th>
+            </tr>
+            {% for d in data %}
+                <tr>
+                    <td>
+                        {{ d.gan }}
+                    </td>
+                    <td>
+                        {{ d.name }}
+                    </td>
+                    <td>
+                        {{ d.games }}
+                    </td>
+                    <td>
+                        {{ d.steps }}
+                    </td>
+                    <td>{{ d.level }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
