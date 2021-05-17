@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.db import models
 import random
 from django.db.models import Sum,Avg
-from atlasapp.forms import AddUserForm, AddMissionForm, AddItemForm, AddComplainForm
+from atlasapp.forms import AddUserForm, AddMissionForm, AddItemForm, AddComplainForm, AddMessageForm
 from atlasapp.models import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
