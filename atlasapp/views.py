@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db import models
 import random
-
+from django.db.models import Sum,Avg
 from atlasapp.forms import AddUserForm, AddMissionForm, AddItemForm, AddComplainForm
 from atlasapp.models import *
 from django.shortcuts import render, redirect, get_object_or_404
@@ -334,3 +334,13 @@ def createcomplain(request):
     else:
         form = AddComplainForm()
     return render(request, 'atlasapp/addcomplain.html', {'form': form, 'user':user})
+
+@login_required
+def reports(request):
+    user = User.objects.get(pk=request.user.id)
+    users = User.objects.filter(gan_id=user.gan.id)
+    data =[]
+    for u in users:
+        steps = Game.objects.filter(user=u).aggregate(total_steps=Avg('steps'))['total_steps']
+        data.append({'name':u.name+''+u.lastname,'gan':u.gan.name,'games':len(Game.objects.filter(user=u)),'steps':round(steps,0),'level':round(steps,0)+1})
+    return render(request, 'atlasapp/gannet_reports.html', {'data': data})
