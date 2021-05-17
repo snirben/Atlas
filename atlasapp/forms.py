@@ -5,7 +5,7 @@ from atlasapp.choices import *
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
-from .models import User, Mission, Item, Complain
+from .models import User, Mission, Item, Complain, Message
 from django.forms import ModelForm, DateInput
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import UpdateView
@@ -59,5 +59,14 @@ class AddComplainForm(forms.ModelForm):
     class Meta:
         model = Complain
         fields = ["text", "done", "user","date"]
+
+
+class AddMessageForm(forms.ModelForm):
+    def init(self, *args, **kwargs):
+        super(AddMessageForm, self).init(*args, **kwargs)
+
+    class Meta:
+        model = Message
+        fields = ['message','gan']
 
 

@@ -1,0 +1,30 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container">
+    <title>הוספת הודעה</title>
+        <h2 class="title" id="headers">הוספת הודעה</h2>
+        <br>
+        <br>
+        <br>
+        <form action = "" class="formClass form-group" method="POST">
+            {% csrf_token %}
+            <div class="gadditempage">
+            <div>
+                <label class="additempagelable">הודעה</label>
+            </div>
+            <div class="mb-3">
+                {{form.message}}
+            </div>
+            <div class="mb-3">
+                <label class="additempagelable">גן</label><br>
+                {{ form.gan }}
+            </div>
+
+                 <button type="submit" value="Submit" class="btn btn-primary">הוסף</button>
+            </div>
+        </form>
+    </div>
+
+    {% endblock %}

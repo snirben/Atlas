@@ -44,7 +44,8 @@ urlpatterns = [
     path('update-complain/<part_id>', views.update_complain, name="update_complain"),
     path('addcomplain/', views.createcomplain, name="createcomplain"),
     path('reports/', views.reports, name="reports"),
-    path('messages/', views.messages, name="messages")
+    path('messages/', views.messages, name="messages"),
+    path('add_messages/', views.add_messages, name="add_messages")
 
 
 

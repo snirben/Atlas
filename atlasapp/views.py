@@ -350,3 +350,14 @@ def reports(request):
 def messages(request):
     messages = Message.objects.all()
     return render(request, 'atlasapp/supervisor_messages.html', {'messages': messages})
+
+@login_required
+def add_messages(request):
+    form = AddMessageForm(request.POST)
+    if form.is_valid():
+
+        form.save()
+        return redirect('messages')
+    else:
+        form = AddMessageForm()
+    return render(request, 'atlasapp/add_message_supervisor.html', {'form': form})
