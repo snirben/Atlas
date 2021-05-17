@@ -344,3 +344,9 @@ def reports(request):
         steps = Game.objects.filter(user=u).aggregate(total_steps=Avg('steps'))['total_steps']
         data.append({'name':u.name+''+u.lastname,'gan':u.gan.name,'games':len(Game.objects.filter(user=u)),'steps':round(steps,0),'level':round(steps,0)+1})
     return render(request, 'atlasapp/gannet_reports.html', {'data': data})
+
+
+@login_required
+def messages(request):
+    messages = Message.objects.all()
+    return render(request, 'atlasapp/supervisor_messages.html', {'messages': messages})
