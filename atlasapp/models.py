@@ -70,3 +70,8 @@ class Complain(models.Model):
     user = models.CharField(max_length=50, null=False)
     date = models.DateField(("Date"), default=datetime.date.today)
 
+class Message(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    gan = models.ForeignKey(Gan, on_delete=models.CASCADE, null=True, blank=True)
+    message = models.TextField(max_length=250, null=False)
+

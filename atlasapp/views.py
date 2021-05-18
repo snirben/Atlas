@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.db import models
 import random
 from django.db.models import Sum,Avg
-from atlasapp.forms import AddUserForm, AddMissionForm, AddItemForm, AddComplainForm
+from atlasapp.forms import AddUserForm, AddMissionForm, AddItemForm, AddComplainForm, AddMessageForm
 from atlasapp.models import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -344,3 +344,20 @@ def reports(request):
         steps = Game.objects.filter(user=u).aggregate(total_steps=Avg('steps'))['total_steps']
         data.append({'name':u.name+''+u.lastname,'gan':u.gan.name,'games':len(Game.objects.filter(user=u)),'steps':round(steps,0),'level':round(steps,0)+1})
     return render(request, 'atlasapp/gannet_reports.html', {'data': data})
+
+
+@login_required
+def messages(request):
+    messages = Message.objects.all()
+    return render(request, 'atlasapp/supervisor_messages.html', {'messages': messages})
+
+@login_required
+def add_messages(request):
+    form = AddMessageForm(request.POST)
+    if form.is_valid():
+
+        form.save()
+        return redirect('messages')
+    else:
+        form = AddMessageForm()
+    return render(request, 'atlasapp/add_message_supervisor.html', {'form': form})

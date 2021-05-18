@@ -1,0 +1,28 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+<table class="table table-center">
+        <tr class="table-info" >
+            <a class="icons" href="{% url 'add_messages' %}"><i class="fa fa-plus" style="color:#bbbbbb"></i></a>
+          <th  scope="col">הודעה</th>
+            <th  scope="col">גן</th>
+            <th  scope="col">תאריך</th>
+        </tr>
+        {% for message in messages%}
+                <tr>
+                    <td>
+                        {{ message.message }}
+                    </td>
+                                    <td>
+                        {{ message.gan.name }}
+                    </td>
+                                    <td>
+                        {{ message.created_at }}
+                    </td>
+
+                </tr>
+            {% endfor %}
+    </table>
+</div>
+{% endblock %}

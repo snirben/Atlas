@@ -12,5 +12,7 @@ def avgSteps(gan):
     for i in childGames:
         if i.user.gan == gan:
             sumSteps += i.steps
+    if len(childGames) == 0:
+        return 0
     avgSteps = sumSteps / len(childGames)
     return avgSteps
