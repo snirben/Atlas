@@ -1,0 +1,29 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+
+<title>דף בידודים</title>
+
+<div class="container">
+    <div>
+        <h2 class="headers">דף בידודים</h2>
+    </div>
+         <table class="table table-center">
+        <tr class="table-info">
+            <th scope="col">שם</th>
+            <th scope="col">שם משפחה</th>
+            <th scope="col">האם חולה</th>
+            <th scope="col">האם בבידוד</th>
+        </tr>
+        {% for child in users %}
+
+             {% endfor %}
+
+    </table>
+</div>
+
+
+
+
+
+{% endblock %}
