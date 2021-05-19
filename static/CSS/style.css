@@ -100,3 +100,10 @@
 				 0px 18px 23px rgba(0,0,0,0.1);
     padding: 30px 0px 20px 0px;
 }
+
+.createcapsulesbutton{
+    float: right;
+    padding-top: 20px;
+    padding-right: 30px;
+    clear: both
+}
