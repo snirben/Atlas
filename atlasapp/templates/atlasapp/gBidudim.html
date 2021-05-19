@@ -16,7 +16,28 @@
             <th scope="col">האם בבידוד</th>
         </tr>
         {% for child in users %}
-
+                <tr>
+                    <td>
+                        {{child.name}}
+                    </td>
+                    <td>
+                        {{child.lastname}}
+                    </td>
+                    <td>
+                        {% if child.covid == true %}
+                        חולה
+                        {% else %}
+                        בריא
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if child.mevodad == true %}
+                        מבודד
+                        {% else %}
+                        לא מבודד
+                        {% endif %}
+                    </td>
+                </tr>
              {% endfor %}
 
     </table>
