@@ -361,3 +361,7 @@ def add_messages(request):
     else:
         form = AddMessageForm()
     return render(request, 'atlasapp/add_message_supervisor.html', {'form': form})
+
+def capsules_view(request):
+    context = {}
+    return render(request, 'atlasapp/create_capsules.html', context)
