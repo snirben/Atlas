@@ -47,7 +47,8 @@ urlpatterns = [
     path('messages/', views.messages, name="messages"),
     path('add_messages/', views.add_messages, name="add_messages"),
     path('create_capsules/', views.capsules_view, name="capsules_view"),
-    path('gBidudim/', views.gBidudim, name="gBidudim")
+    path('gBidudim/', views.gBidudim, name="gBidudim"),
+    path('contact_page/', views.contact_page, name="contact_page")
 
 
 

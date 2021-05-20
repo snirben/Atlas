@@ -372,3 +372,7 @@ def gBidudim(request):
     users = User.objects.filter(gan_id = user.gan.id, role=2)
     context = {'users': users}
     return render(request, 'atlasapp/gBidudim.html', context)
+
+def contact_page(request):
+    context = {}
+    return render(request, 'atlasapp/contact_page.html', context)
