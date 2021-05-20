@@ -365,3 +365,10 @@ def add_messages(request):
 def capsules_view(request):
     context = {}
     return render(request, 'atlasapp/create_capsules.html', context)
+
+@login_required
+def gBidudim(request):
+    user = User.objects.get(pk=request.user.id)
+    users = User.objects.filter(gan_id = user.gan.id, role=2)
+    context = {'users': users}
+    return render(request, 'atlasapp/gBidudim.html', context)
