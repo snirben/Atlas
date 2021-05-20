@@ -374,5 +374,6 @@ def gBidudim(request):
     return render(request, 'atlasapp/gBidudim.html', context)
 
 def contact_page(request):
-    context = {}
+    contact = Contact.objects.all()
+    context = {'contact': contact}
     return render(request, 'atlasapp/contact_page.html', context)
