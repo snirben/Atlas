@@ -9,4 +9,4 @@ admin.site.register(SubSubject)
 admin.site.register(Item)
 admin.site.register(Game)
 admin.site.register(Complain)
-
+admin.site.register(Contact)

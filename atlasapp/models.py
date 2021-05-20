@@ -75,3 +75,7 @@ class Message(models.Model):
     gan = models.ForeignKey(Gan, on_delete=models.CASCADE, null=True, blank=True)
     message = models.TextField(max_length=250, null=False)
 
+class Contact(models.Model):
+    parentname = models.TextField(max_length=3000, null=False)
+    phone = models.BooleanField(default=False)
+    child = models.ForeignKey(User, on_delete=models.CASCADE)
