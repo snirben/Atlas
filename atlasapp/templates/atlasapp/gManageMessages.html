@@ -8,6 +8,26 @@
         {{ form }}
         <button type="submit" class="btn btn-secondary btn-sm">הודעה חדשה</button>
     </form>
+    <table class="table table-center">
+            <tr class="table-info" >
+              <th  scope="col">הודעה</th>
+                <th  scope="col">גן</th>
+                <th  scope="col">תאריך</th>
+            </tr>
+            {% for message in messages%}
+                    <tr>
+                        <td>
+                            {{ message.message }}
+                        </td>
+                                        <td>
+                            {{ message.gan.name }}
+                        </td>
+                                        <td>
+                            {{ message.created_at }}
+                        </td>
 
+                    </tr>
+                {% endfor %}
+        </table>
 </div>
 {% endblock %}
