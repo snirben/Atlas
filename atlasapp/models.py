@@ -76,6 +76,6 @@ class Message(models.Model):
     message = models.TextField(max_length=250, null=False)
 
 class Contact(models.Model):
-    parentname = models.TextField(max_length=3000, null=False)
-    phone = models.BooleanField(default=False)
+    parentname = models.CharField(max_length=50, null=False)
+    phone = models.CharField(max_length=50, null=False)
     child = models.ForeignKey(User, on_delete=models.CASCADE)

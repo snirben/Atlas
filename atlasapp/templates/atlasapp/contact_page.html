@@ -17,7 +17,22 @@
           <th  scope="col">נייד</th>
           <th></th>
         </tr>
-
+                {% for item in contact%}
+                <tr>
+                    <td>
+                        {{item.child.name}}
+                    </td>
+                    <td>
+                        {{item.child.lastname}}
+                    </td>
+                    <td>
+                        {{item.parentname}}
+                    </td>
+                    <td>
+                        {{item.phone}}
+                    </td>
+                </tr>
+            {% endfor %}
     </table>
 </div>
 
