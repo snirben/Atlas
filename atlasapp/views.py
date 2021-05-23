@@ -342,6 +342,8 @@ def reports(request):
     data =[]
     for u in users:
         steps = Game.objects.filter(user=u).aggregate(total_steps=Avg('steps'))['total_steps']
+        if  not steps:
+           steps=0
         data.append({'name':u.name+''+u.lastname,'gan':u.gan.name,'games':len(Game.objects.filter(user=u)),'steps':round(steps,0),'level':round(steps,0)+1})
     return render(request, 'atlasapp/gannet_reports.html', {'data': data})
 
