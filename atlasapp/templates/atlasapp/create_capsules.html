@@ -2,16 +2,53 @@
 {% load static %}
 {% block content %}
 
+<script src="{% static '/JS/send_emails.js' %}"></script>
+
 <title>קפסולות</title>
 <div>
     <h2 class ="title" id="headers">קפסולות</h2>
 </div>
 
     <div class="createcapsulesbutton">
-        <a class="btn btn-outline-primary" >מכולל קפסולות</a>
+        <a class="btn btn-outline-info send_emails" >שליחת מייל עדכון להורים 💌</a>
     </div>
 
+<div style="padding-top: 150px ; text-align:right" >
+<table class="table table-center" >
 
+    <td>
+            <table class="table table-center" >
+
+            <tr class="table-info" >
+              <th  scope="col" >קפסולה 1</th>
+            </tr>
+                    {% for child in capsule1 %}
+                    <tr>
+                        <td >
+                            {{child.name}}
+                        </td>
+                    </tr>
+                {% endfor %}
+        </table>
+    </td>
+    <td>
+
+             <table class="table table-center">
+
+            <tr class="table-info" >
+                <th  scope="col">קפסולה 2</th>
+            </tr>
+                    {% for child in capsule2 %}
+                    <tr>
+                        <td>
+                            {{child.name}}
+                        </td>
+                    </tr>
+                {% endfor %}
+        </table>
+    </td>
+</table>
+</div>
 
 
 {% endblock %}

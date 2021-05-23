@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db import models
@@ -364,9 +365,39 @@ def add_messages(request):
         form = AddMessageForm()
     return render(request, 'atlasapp/add_message_supervisor.html', {'form': form})
 
+
 def capsules_view(request):
-    context = {}
+    user = User.objects.get(pk=request.user.id)
+    users = User.objects.filter(gan_id = user.gan.id,role=2)
+    capsule1= users[0 : round(len(users)/2)]
+    capsule2=users[round(len(users)/2) : len(users)]
+    context = {'capsule1': capsule1, 'capsule2':capsule2}
     return render(request, 'atlasapp/create_capsules.html', context)
+
+def send_emails(request):
+    user = User.objects.get(pk=request.user.id)
+    users = User.objects.filter(gan_id = user.gan.id,role=2)
+    capsule1= users[0 : round(len(users)/2)]
+    capsule2=users[round(len(users)/2) : len(users)]
+    for child in capsule1:
+        send_mail(
+            'חלוקת קפסולות בגן',
+            'הקפסולה של ילדך היא: 1',
+            'atlas2021t18@gmail.com',
+            [child.email],
+            fail_silently=True,
+        )
+    for child in capsule2:
+        send_mail(
+            'חלוקת קפסולות בגן',
+            'הקפסולה של ילדך היא: 2',
+            'atlas2021t18@gmail.com',
+            [child.email],
+            fail_silently=True,
+        )
+    context = {'capsule1': capsule1, 'capsule2': capsule2}
+    return JsonResponse(data={}, status=200)
+
 
 @login_required
 def gBidudim(request):
