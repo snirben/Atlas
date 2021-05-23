@@ -79,3 +79,8 @@ class Contact(models.Model):
     parentname = models.CharField(max_length=50, null=False)
     phone = models.CharField(max_length=50, null=False)
     child = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Message_to_parents(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    gan = models.ForeignKey(Gan, on_delete=models.CASCADE, null=True, blank=True)
+    message = models.TextField(max_length=250, null=False)
