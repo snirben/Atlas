@@ -49,7 +49,8 @@ urlpatterns = [
     path('create_capsules/', views.capsules_view, name="capsules_view"),
     path('gBidudim/', views.gBidudim, name="gBidudim"),
     path('contact_page/', views.contact_page, name="contact_page"),
-    path('send_emails/', views.send_emails, name="send_emails")
+    path('send_emails/', views.send_emails, name="send_emails"),
+    path('messages_to_parents/', views.messages_to_parents, name="messages_to_parents")
 
 
 

@@ -6,7 +6,8 @@ from django.contrib import messages
 from django.db import models
 import random
 from django.db.models import Sum,Avg
-from atlasapp.forms import AddUserForm, AddMissionForm, AddItemForm, AddComplainForm, AddMessageForm
+from atlasapp.forms import AddUserForm, AddMissionForm, AddItemForm, AddComplainForm, AddMessageForm, \
+    AddMessageForm_to_parents
 from atlasapp.models import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -410,3 +411,15 @@ def contact_page(request):
     contact = Contact.objects.all()
     context = {'contact': contact}
     return render(request, 'atlasapp/contact_page.html', context)
+
+
+@login_required
+def messages_to_parents(request):
+    messages = Message_to_parents.objects.all()
+    form = AddMessageForm_to_parents(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('messages_to_parents')
+    else:
+        form = AddMessageForm_to_parents()
+    return render(request, 'atlasapp/gManageMessages.html', {'messages': messages , 'form' : form})
