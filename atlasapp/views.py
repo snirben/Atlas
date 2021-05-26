@@ -423,3 +423,8 @@ def messages_to_parents(request):
     else:
         form = AddMessageForm_to_parents()
     return render(request, 'atlasapp/gManageMessages.html', {'messages': messages , 'form' : form})
+
+
+def gannet_create_complain(request):
+    context = {}
+    return render(request, 'atlasapp/g_add_complain.html', context)
