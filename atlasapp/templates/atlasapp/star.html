@@ -1,0 +1,28 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+
+
+
+    <div class="container">
+        <table id='' class="table table-center">
+<thead>
+            <tr class="table-info">
+                <th scope="col">שם הילד</th>
+                <th scope="col">תאריך כוכב</th>
+                </thead>
+            </tr>
+        <tbody>
+            {% for s in stars %}
+                <tr>
+                    <td>
+                        {{ s.user.name }}
+                    </td>
+                    <td>
+                        {{ s.created_at }}
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+{% endblock %}
