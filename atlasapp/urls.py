@@ -51,7 +51,9 @@ urlpatterns = [
     path('contact_page/', views.contact_page, name="contact_page"),
     path('send_emails/', views.send_emails, name="send_emails"),
     path('messages_to_parents/', views.messages_to_parents, name="messages_to_parents"),
-    path('g_add_complain/', views.gannet_create_complain, name="gannet_create_complain")
+    path('g_add_complain/', views.gannet_create_complain, name="gannet_create_complain"),
+    path('stars',views.star_page,name="star_page"),
+    path('ajax/create-star/', views.pick_star, name='create-star')
 
 
 

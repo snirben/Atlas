@@ -428,3 +428,25 @@ def messages_to_parents(request):
 def gannet_create_complain(request):
     context = {}
     return render(request, 'atlasapp/g_add_complain.html', context)
+
+def star_page(request):
+    stars = Star.objects.all()
+    user = User.objects.get(pk=request.user.id)
+    users = User.objects.filter(gan_id=user.gan.id, role=2)
+    temp = users[0]
+    tempsteps=Game.objects.filter(user=users[0]).aggregate(total_steps=Avg('steps'))['total_steps']
+    for u in users:
+        if u != temp:
+         steps = Game.objects.filter(user=u).aggregate(total_steps=Avg('steps'))['total_steps']
+         if round(steps) < round(tempsteps):
+             temp=u
+             tempsteps=steps
+
+    star = temp
+    context = {'stars': stars,'star':star}
+    return render(request, 'atlasapp/star.html', context)
+
+def pick_star(request):
+    user = User.objects.get(pk=request.GET.get("user_id"))
+    star = Star.objects.create(user_id=user.id)
+    return JsonResponse(data={}, status=200)
