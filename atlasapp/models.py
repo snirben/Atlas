@@ -95,3 +95,4 @@ class Health(models.Model):
     cov19 = models.CharField(verbose_name="הצהרת בריאות" ,choices=TRUE_CHOICES, max_length=30, default=1)
     simp = models.CharField(verbose_name="יש סימפטומים?",choices=TRUE_CHOICES, max_length=30, default=1)
     family = models.CharField(verbose_name="בני משפחה מחסונים?",choices=TRUE_CHOICES, max_length=30, default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
