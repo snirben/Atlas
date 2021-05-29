@@ -18,6 +18,15 @@
         <a class="btn btn-outline-dark" href="/stars">כוכב השבוע</a>
     </div>
 
+<div class="box">
+    <h3 id="sub-header">לוח הודעות</h3>
+    <br><br>
+    <ul>
+        {% for msg in messages %}
+        <li style="text-align: right;">{{msg.message}}</li>
+        {% endfor %}
+    </ul>
+</div>
 
 
 
