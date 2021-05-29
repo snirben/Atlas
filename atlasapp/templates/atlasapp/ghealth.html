@@ -1,0 +1,39 @@
+
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+
+<title>דף קשר</title>
+
+<div class="container">
+  <h2 class ="title" id="headers">דף התו הירוק</h2>
+
+    <table class="table table-center">
+
+        <tr class="table-info" >
+          <th  scope="col">שם פרטי</th>
+          <th  scope="col">שם משפחה</th>
+          <th  scope="col">נחתם ב</th>
+        </tr>
+                {% for h in heal%}
+                <tr>
+                    <td>
+                        {{h.user.name}}
+                    </td>
+                    <td>
+                        {{h.user.lastname}}
+                    </td>
+                    <td>
+                        {{h.created_at}}
+                    </td>
+                </tr>
+            {% endfor %}
+    </table>
+</div>
+
+
+
+
+</body>
+</html>
+{% endblock %}
