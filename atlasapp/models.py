@@ -88,3 +88,10 @@ class Message_to_parents(models.Model):
 class Star(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+class Health(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    heat = models.CharField(verbose_name="חום גוף",max_length=50, null=False, default='36.5')
+    cov19 = models.CharField(verbose_name="הצהרת בריאות" ,choices=TRUE_CHOICES, max_length=30, default=1)
+    simp = models.CharField(verbose_name="יש סימפטומים?",choices=TRUE_CHOICES, max_length=30, default=1)
+    family = models.CharField(verbose_name="בני משפחה מחסונים?",choices=TRUE_CHOICES, max_length=30, default=1)
