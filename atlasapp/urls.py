@@ -56,7 +56,8 @@ urlpatterns = [
     path('ajax/create-star/', views.pick_star, name='create-star'),
     path('health/', views.health, name='health'),
     path('editmyhealth/<id>', views.myhealthedit, name='ceditchild'),
-    path('myhealth/<user_id>', views.myhealth, name='myhealth')
+    path('myhealth/<user_id>', views.myhealth, name='myhealth'),
+    path('mymessages/', views.mymessages, name='mymessages')
 
 
 
