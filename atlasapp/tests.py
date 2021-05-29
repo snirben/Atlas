@@ -2,6 +2,45 @@ from django.test import TestCase
 from django.test import Client
 from .models import *
 from django.urls import reverse
+from django.contrib.staticfiles import finders
+from django.contrib.staticfiles.storage import staticfiles_storage
+import requests
+
+class DbTestCase(TestCase):
+
+    def dbconnection(self):
+     from django.db import connections
+     from django.db.utils import OperationalError
+     db_conn = connections['default']
+     try:
+        c = db_conn.cursor()
+     except OperationalError:
+        connected = False
+     else:
+        connected = True
+     self.assertEqual(connected, True)
+
+class StaticTestCase(TestCase):
+    #check if we have valid access to all of the static files
+    def staticfiles(self):
+        absolute_path = finders.find('js/game.js')
+        assert staticfiles_storage.exists(absolute_path)
+
+class CheckInternetConnection(TestCase):
+    #we want to check that we can pull all cdn and we have interntes
+    def interneton(self):
+        #google check
+     url = "8.8.8.8"
+     timeout = 5
+     answer=''
+     try:
+        request = requests.get(url, timeout=timeout)
+        answer= "Connected to the Internet"
+        self.assertEqual(answer, "Connected to the Internet")
+     except (requests.ConnectionError, requests.Timeout) as exception:
+        answer= "No internet connection."
+        self.assertEqual(answer, "Connected to the Internet")
+
 
 class UserTestCreate(TestCase):
 
