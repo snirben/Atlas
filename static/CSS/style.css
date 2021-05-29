@@ -107,3 +107,19 @@
     padding-right: 30px;
     clear: both
 }
+
+.box{
+    box-sizing: border-box;
+    width: 20%;
+    border: solid #86cfda 10px;
+    padding: 50px;
+    margin-top: 150px;
+    margin-right: 30px;
+}
+
+#sub-header{/*
+   padding-right: 30px;
+   padding-top: 150px;*/
+   float: right;
+   font-family: 'Rubik', sans-serif;
+}
