@@ -450,3 +450,10 @@ def pick_star(request):
     user = User.objects.get(pk=request.GET.get("user_id"))
     star = Star.objects.create(user_id=user.id)
     return JsonResponse(data={}, status=200)
+
+@login_required
+def health(request):
+    today = datetime.date.today()
+    heal = Health.objects.filter(created_at__lt = today)
+    context = {'heal': heal}
+    return render(request, 'atlasapp/ghealth.html', context)
