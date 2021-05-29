@@ -1,0 +1,12 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+
+    <form action="{% url 'ceditchild' rep.id %}" class = "form-group" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-secondary btn-sm">דווח</button>
+    </form>
+</div>
+{% endblock %}

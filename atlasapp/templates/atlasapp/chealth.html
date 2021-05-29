@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
 
-    <form class = "form-group" method="post">
+    <form action="{% url 'myhealth' user.id %}" class = "form-group" method="post">
         {% csrf_token %}
         {{ form }}
         <button type="submit" class="btn btn-secondary btn-sm">דווח</button>
@@ -15,6 +15,7 @@
                 <th  scope="col">הצהרת בריאות</th>
                 <th  scope="col">יש סימפטומים</th>
                 <th  scope="col">בני משפחה מחוסנים</th>
+                <th  scope="col">עריכה</th>
             </tr>
             {% for h in heal%}
                     <tr>
@@ -33,6 +34,7 @@
                                      <td>
                             {{ h.family }}
                         </td>
+                    <td><a type="submit" href="{% url 'ceditchild' h.id %}" class="btn btn-sm btn-warning">עריכת דיווח</a> </td>
 
                     </tr>
                 {% endfor %}
