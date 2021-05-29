@@ -7,11 +7,11 @@ from django.db import models
 import random
 from django.db.models import Sum,Avg
 from atlasapp.forms import AddUserForm, AddMissionForm, AddItemForm, AddComplainForm, AddMessageForm, \
-    AddMessageForm_to_parents
+    AddMessageForm_to_parents, Healthform
 from atlasapp.models import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 
 
 
@@ -458,3 +458,31 @@ def health(request):
     heal = Health.objects.filter(created_at__lt = today)
     context = {'heal': heal}
     return render(request, 'atlasapp/ghealth.html', context)
+
+
+@login_required
+def myhealth(request,user_id):
+    user= get_object_or_404(User,pk=user_id)
+    health = Health.objects.filter(user=user)
+    form = Healthform(request.POST or None)
+    if form.is_valid():
+        obj=form.save(commit=False)
+        obj.user = user
+        obj.save()
+        return HttpResponseRedirect('/myhealth/%d' % user.id)
+    else:
+        form = Healthform()
+    return render(request, 'atlasapp/chealth.html', {'heal': health , 'form' : form})
+
+@login_required
+def myhealthedit(request, id):
+    rep = get_object_or_404(Health, id=id)
+    form = Healthform(request.POST or None, instance=rep)
+    context = {'form': form,'rep':rep}
+    if form.is_valid():
+        obj = form.save(commit=False)
+        obj.user = User.objects.get(pk=request.user.id)
+        obj.save()
+        return render(request, 'atlasapp/ceditchild.html', context)
+    else:
+        return render(request, 'atlasapp/ceditchild.html', context)

@@ -1,0 +1,41 @@
+{% extends 'atlasapp/home.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+
+    <form class = "form-group" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-secondary btn-sm">דווח</button>
+    </form>
+    <table class="table table-center">
+            <tr class="table-info" >
+              <th  scope="col">תאריך</th>
+                <th  scope="col">חום גוף</th>
+                <th  scope="col">הצהרת בריאות</th>
+                <th  scope="col">יש סימפטומים</th>
+                <th  scope="col">בני משפחה מחוסנים</th>
+            </tr>
+            {% for h in heal%}
+                    <tr>
+                        <td>
+                            {{ h.created_at }}
+                        </td>
+                                        <td>
+                            {{ h.heat }}
+                        </td>
+                                        <td>
+                            {{ h.cov19 }}
+                        </td>
+                                     <td>
+                            {{ h.simp }}
+                        </td>
+                                     <td>
+                            {{ h.family }}
+                        </td>
+
+                    </tr>
+                {% endfor %}
+        </table>
+</div>
+{% endblock %}

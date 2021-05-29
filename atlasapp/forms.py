@@ -5,7 +5,7 @@ from atlasapp.choices import *
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
-from .models import User, Mission, Item, Complain, Message, Message_to_parents
+from .models import User, Mission, Item, Complain, Message, Message_to_parents, Health
 from django.forms import ModelForm, DateInput
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import UpdateView
@@ -80,3 +80,10 @@ class AddMessageForm_to_parents(forms.ModelForm):
 
 
 
+class Healthform(forms.ModelForm):
+    def init(self, *args, **kwargs):
+        super(Healthform, self).init(*args, **kwargs)
+
+    class Meta:
+        model = Health
+        fields = ['heat','cov19','simp','family','file']

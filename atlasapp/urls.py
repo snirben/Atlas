@@ -53,8 +53,10 @@ urlpatterns = [
     path('messages_to_parents/', views.messages_to_parents, name="messages_to_parents"),
     path('g_add_complain/', views.gannet_create_complain, name="gannet_create_complain"),
     path('stars',views.star_page,name="star_page"),
-    path('ajax/create-star/', views.pick_star, name='create-star')
-
+    path('ajax/create-star/', views.pick_star, name='create-star'),
+    path('health/', views.health, name='health'),
+    path('editmyhealth/<id>', views.myhealthedit, name='ceditchild'),
+    path('myhealth/<user_id>', views.myhealth, name='myhealth')
 
 
 
