@@ -96,3 +96,4 @@ class Health(models.Model):
     simp = models.CharField(verbose_name="יש סימפטומים?",choices=TRUE_CHOICES, max_length=30, default=1)
     family = models.CharField(verbose_name="בני משפחה מחסונים?",choices=TRUE_CHOICES, max_length=30, default=1)
     created_at = models.DateTimeField(auto_now_add=True)
+    file = models.FileField(upload_to="files", default="media/files/default.txt")
