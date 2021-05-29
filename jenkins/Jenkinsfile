@@ -9,7 +9,6 @@ pipeline {
                 }
             }
             steps {
-                sh 'pip install pillow'
                 sh 'python3 manage.py makemigrations'
                 sh 'python3 manage.py migrate'
                 sh 'nohup python3 manage.py runserver &'
