@@ -15,21 +15,12 @@ pipeline {
         }
         }
 
-        stage('Unit-Test') {
-            steps {
-                sh 'python3 manage.py makemigrations'
-                sh 'python3 manage.py migrate'
-                sh 'python3 manage.py test'
-            }
-            post {
-                always {
-                    junit 'test-reports/junit.xml'
-                }
-            }
-        }
+
 
         stage('Metric1- Covrage'){
         steps{
+        sh 'python3 manage.py makemigrations'
+        sh 'python3 manage.py migrate'
         sh 'sudo pip3 install coverage'
         sh 'coverage run manage.py test'
         sh 'coverage report'
@@ -42,6 +33,18 @@ pipeline {
         sh 'sudo pip3 install pylint-django'
         sh ' pylint --ignore=atlasapp/migrations atlasapp'
         }
+        }
+                stage('Unit-Test') {
+            steps {
+                sh 'python3 manage.py makemigrations'
+                sh 'python3 manage.py migrate'
+                sh 'python3 manage.py test'
+            }
+            post {
+                always {
+                    junit 'test-reports/junit.xml'
+                }
+            }
         }
     }
   }
