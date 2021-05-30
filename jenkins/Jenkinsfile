@@ -2,7 +2,7 @@
 pipeline {
     agent {
         docker {
-                    image 'snirben/atlas:atlasv2'
+                    image 'snirben/atlas:atlasv3'
                 }}
     stages {
         stage('Build'){
