@@ -17,7 +17,7 @@ pipeline {
         stage('Covrage'){
         steps{
         sh 'sudo pip3 install coverage'
-        sh 'python -m coverage run manage.py test'
+        sh 'python3 -m coverage run manage.py test'
         }
         }
         stage('Unit-Test') {
