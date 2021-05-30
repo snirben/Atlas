@@ -14,26 +14,7 @@ pipeline {
         sh 'sudo pip3 install -r requirements.txt'
         }
         }
-        stage('Covrage'){
-        steps{
-        sh 'python3 manage.py makemigrations'
-        sh 'python3 manage.py migrate'
-        sh 'sudo pip3 install coverage'
-        sh 'coverage run manage.py test'
-        sh 'coverage xml'
-        }
-        post{
-         publishHTML (target: [
-      allowMissing: false,
-      alwaysLinkToLastBuild: false,
-      keepAll: true,
-      reportDir: 'coverage',
-      reportFiles: 'htmlcov/index.html',
-      reportName: "RCov Report"
-    ])
 
-        }
-        }
         stage('Unit-Test') {
             steps {
                 sh 'python3 manage.py makemigrations'
@@ -45,6 +26,22 @@ pipeline {
                     junit 'test-reports/junit.xml'
                 }
             }
+        }
+
+        stage('Metric1- Covrage'){
+        steps{
+        sh 'sudo pip3 install coverage'
+        sh 'coverage run manage.py test'
+        sh 'coverage report'
+        }
+        }
+
+         stage('Metric2- PYLINT'){
+        steps{
+        sh 'sudo pip3 install pylint'
+        sh 'sudo pip3 install pylint-django'
+        sh ' pylint --ignore=atlasapp/migrations atlasapp'
+        }
         }
     }
   }

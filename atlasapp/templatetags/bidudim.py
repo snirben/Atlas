@@ -1,5 +1,5 @@
 from django import template
-from atlasapp.models import *
+from atlasapp.models import User
 
 register = template.Library()
 
