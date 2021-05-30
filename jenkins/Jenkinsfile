@@ -5,11 +5,10 @@ pipeline {
         stage('unittest') {
             agent {
                 docker {
-                    image 'snirben/atlas:atlasv1'
+                    image 'snirben/atlas:atlasv2'
                 }
             }
             steps {
-                sh 'pip install pillow'
                 sh 'python3 manage.py makemigrations'
                 sh 'python3 manage.py migrate'
                 sh 'nohup python3 manage.py runserver &'
