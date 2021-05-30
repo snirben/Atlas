@@ -3,6 +3,7 @@ pipeline {
     agent {
         docker {
                     image 'snirben/atlas:atlasv3'
+                    args '-u root'
                 }}
     stages {
         stage('Build'){
