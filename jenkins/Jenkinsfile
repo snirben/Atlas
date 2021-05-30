@@ -31,7 +31,8 @@ pipeline {
         steps{
         sh 'sudo pip3 install pylint'
         sh 'sudo pip3 install pylint-django'
-        sh 'pylint --ignore=atlasapp/migrations atlasapp'
+        sh 'pylint --ignore=atlasapp/migrations --score=y --reports=n atlasapp | awk '$0 ~ /Your code/ || $0 ~ /Global/ {print}'
+'
         }
         }
                 stage('Unit-Test') {
