@@ -2,7 +2,7 @@
 pipeline {
     agent {
         docker {
-                    image 'snirben/atlas:atlasv1'
+                    image 'snirben/atlas:atlasv2'
                 }}
     stages {
         stage('Build'){
@@ -11,11 +11,10 @@ pipeline {
         sh 'sudo pip3 install -r requirements.txt'
         }
         }
-        stage('unittest') {
+        stage('Unit-Test') {
             steps {
                 sh 'python3 manage.py makemigrations'
                 sh 'python3 manage.py migrate'
-                sh 'nohup python3 manage.py runserver &'
                 sh 'python3 manage.py test'
             }
             post {
