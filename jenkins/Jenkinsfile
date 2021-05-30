@@ -8,8 +8,9 @@ pipeline {
         stage('Build'){
         steps{
         sh 'rm Atlas -rf'
+        sh 'apt-get install sudo'
         sh 'git clone  https://github.com/snirben/Atlas.git'
-        sh 'pip3 install -r requirements.txt'
+        sh 'sudo pip3 install -r requirements.txt'
         }
         }
         stage('Unit-Test') {
