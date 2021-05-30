@@ -23,9 +23,15 @@ pipeline {
         sh 'coverage xml'
         }
         post{
-        always{
-           junit 'coverage.xml'
-        }
+         publishHTML (target: [
+      allowMissing: false,
+      alwaysLinkToLastBuild: false,
+      keepAll: true,
+      reportDir: 'coverage',
+      reportFiles: 'htmlcov/index.html',
+      reportName: "RCov Report"
+    ])
+
         }
         }
         stage('Unit-Test') {
