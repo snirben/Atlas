@@ -427,8 +427,15 @@ def messages_to_parents(request):
 
 
 def gannet_create_complain(request):
-    context = {}
-    return render(request, 'atlasapp/g_add_complain.html', context)
+    form = AddComplainForm(request.POST or None)
+    # user = Complain(user=request.user)
+    if form.is_valid():
+        form.save()
+        return redirect('GannetHome')
+    else:
+        form = AddComplainForm()
+    return render(request, 'atlasapp/g_add_complain.html', {'form': form})
+
 
 def star_page(request):
     stars = Star.objects.all()
