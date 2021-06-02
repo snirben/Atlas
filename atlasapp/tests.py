@@ -439,3 +439,93 @@ class UserTestStory18(TestCase):
         self.assertEqual(response.status_code, 302)
 
 
+
+class UserTestStory22(TestCase):
+    def test_contact_created_loads_properly(self):
+        self.user = User.objects.create_user(
+            username='kidgarden',
+            password='123456',
+            name='test_kidgarden_name',
+            lastname='test_kidgarden_lastname',
+            email='test_kidgarden_email',
+            phone='test_kidgarden_phone',
+            mevodad=False,
+            covid=True,
+            role=2)
+        self.star = Star.objects.create(user=self.user)
+        self.assertEqual(self.star.id, 1)
+
+    def test_contact_deleted_loads_properly(self):
+        self.user = User.objects.create_user(
+            username='kidgarden',
+            password='123456',
+            name='test_kidgarden_name',
+            lastname='test_kidgarden_lastname',
+            email='test_kidgarden_email',
+            phone='test_kidgarden_phone',
+            mevodad=False,
+            covid=True,
+            role=2)
+        self.star = Star.objects.create(user=self.user)
+        starid = self.star.id
+        self.star.delete()
+        star_exist = Star.objects.filter(pk=starid)
+        self.assertEqual(len(star_exist), 0)
+class UserTestStory12(TestCase):
+    def test_page_loads_properly(self):
+        self.user = User.objects.create_user(
+            username='kidgarden',
+            password='123456',
+            name='test_kidgarden_name',
+            lastname='test_kidgarden_lastname',
+            email='test_kidgarden_email',
+            phone='test_kidgarden_phone',
+            mevodad=False,
+            covid=True,
+            role=1)
+        c = Client()
+        response = c.post('', {'username': 'kidgarden', 'password': '123456'})
+        response = self.client.get('http://127.0.0.1:8000/reports')
+        self.assertEqual(response.status_code, 301)
+class UserTestStory24(TestCase):
+    def test_check_pull_messages_work(self):
+        self.gan = Gan.objects.create(name='gan1')
+        self.message = Message.objects.create(gan=self.gan,message='hello')
+        self.message2 = Message.objects.create(gan=self.gan, message='hello2')
+        self.pull_messages = Message.objects.all()
+        self.assertEqual(len(self.pull_messages),2)
+class UserTestStory39(TestCase):
+
+    def test_message_created_andchanged_loads_properly(self):
+        self.user = User.objects.create_user(
+            username='kidgarden',
+            password='123456',
+            name='test_kidgarden_name',
+            lastname='test_kidgarden_lastname',
+            email='test_kidgarden_email',
+            phone='test_kidgarden_phone',
+            mevodad=False,
+            covid=True,
+            role=2)
+        self.health = Health.objects.create(user=self.user, heat=38)
+        self.obj= Health.objects.get(pk=1)
+        self.obj.heat = "39"
+        self.assertEqual(self.obj.heat, "39")
+
+    def test_message_deleted_loads_properly(self):
+        self.user = User.objects.create_user(
+            username='kidgarden',
+            password='123456',
+            name='test_kidgarden_name',
+            lastname='test_kidgarden_lastname',
+            email='test_kidgarden_email',
+            phone='test_kidgarden_phone',
+            mevodad=False,
+            covid=True,
+            role=2)
+        self.health = Health.objects.create(user=self.user, heat=38)
+        self.obj= Health.objects.get(pk=1)
+        objid = self.obj.id
+        self.obj.delete()
+        obj_exist = Health.objects.filter(pk=objid).exists()
+        self.assertEqual(obj_exist, False)
