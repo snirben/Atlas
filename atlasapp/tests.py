@@ -277,3 +277,122 @@ class UserTestStory21(TestCase):
         self.star.delete()
         star_exist = Star.objects.filter(pk=starid)
         self.assertEqual(len(star_exist), 0)
+
+
+
+
+# Integrationtest
+class UserTestStory19(TestCase):
+    def test_contact_created_andchanged_loads_properly(self):
+        self.user = User.objects.create_superuser(
+            username='kidgarden',
+            password='123456',
+            name='test_kidgarden_name',
+            lastname='test_kidgarden_lastname',
+            email='test_kidgarden_email',
+            phone='test_kidgarden_phone',
+            mevodad=False,
+            covid=True,
+            role=2)
+        self.contact = Contact.objects.create(parentname="moshe", phone="050123123",child=self.user)
+        self.contact.phone = '050111222'
+        self.assertEqual(self.contact.phone, "050111222")
+
+    def test_contact_deleted_loads_properly(self):
+        self.user = User.objects.create_user(
+            username='kidgarden',
+            password='123456',
+            name='test_kidgarden_name',
+            lastname='test_kidgarden_lastname',
+            email='test_kidgarden_email',
+            phone='test_kidgarden_phone',
+            mevodad=False,
+            covid=True,
+            role=1)
+        self.contact = Contact.objects.create(parentname="moshe", phone="050123123",child=self.user)
+        contactid = self.contact.id
+        self.contact.delete()
+        contact_exist = Contact.objects.filter(pk=contactid)
+        self.assertEqual(len(contact_exist), 0)
+
+    def test_contact_create_loads_properly(self):
+        self.user = User.objects.create_user(
+            username='kidgarden',
+            password='123456',
+            name='test_kidgarden_name',
+            lastname='test_kidgarden_lastname',
+            email='test_kidgarden_email',
+            phone='test_kidgarden_phone',
+            mevodad=False,
+            covid=True,
+            role=1)
+        self.contact = Contact.objects.create(parentname="moshe", phone="050123123", child=self.user)
+        self.assertEqual(self.contact.parentname,"moshe")
+class UserTestStory16(TestCase):
+
+    def test_page_loads_properly(self):
+        self.user = User.objects.create_user(
+            username='kidgarden',
+            password='123456',
+            name='test_kidgarden_name',
+            lastname='test_kidgarden_lastname',
+            email='test_kidgarden_email',
+            phone='test_kidgarden_phone',
+            mevodad=False,
+            covid=True,
+            role=1)
+        c = Client()
+        response = c.post('', {'username': 'kidgarden', 'password': '123456'})
+        response = self.client.get('http://127.0.0.1:8000/g_add_complain')
+        self.assertEqual(response.status_code, 301)
+    def test_page_notloads_properly(self):
+        self.user = User.objects.create_user(
+            username='kidgarden',
+            password='123456',
+            name='test_kidgarden_name',
+            lastname='test_kidgarden_lastname',
+            email='test_kidgarden_email',
+            phone='test_kidgarden_phone',
+            mevodad=False,
+            covid=True,
+            role=1)
+        c = Client()
+        response = c.post('', {'username': 'kidgarden', 'password': '123456'})
+        response = self.client.get('http://127.0.0.1:8000/g_add_complain2')
+        self.assertEqual(response.status_code, 404)
+
+#Integrationtest
+class UserTestStory9(TestCase):
+    def test_complaine_created_loads_properly(self):
+        self.child = User.objects.create_user(
+            username='admin',
+            password='123456',
+            name='test_child_name',
+            lastname='test_child_lastname',
+            email='test_child_email',
+            phone='test_child_phone',
+            mevodad=False,
+            covid=True,
+            role=2)
+        self.complaine = Complain.objects.create(text="mission", user=self.child)
+
+        self.assertEqual(self.complaine.text, "mission")
+
+    def test_complaine_deleted_loads_properly(self):
+        self.child = User.objects.create_user(
+            username='admin',
+            password='123456',
+            name='test_child_name',
+            lastname='test_child_lastname',
+            email='test_child_email',
+            phone='test_child_phone',
+            mevodad=False,
+            covid=True,
+            role=2)
+        self.complaine = Complain.objects.create(text="mission", user=self.child)
+        complaineid = self.complaine.id
+        self.complaine.delete()
+        complaine_exist = Complain.objects.filter(pk=complaineid)
+        self.assertEqual(len(complaine_exist), 0)  # because of redirect
+
+
