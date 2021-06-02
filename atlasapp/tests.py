@@ -209,3 +209,71 @@ class testUrl(TestCase):
             status='Not Done'
         )
         self.urlsTest[0].save()
+
+class UserTestStory4(TestCase):
+    def test_page_loads_properly(self):
+        self.supervisor = User.objects.create_user(
+            username='supervisor',
+            password='123456',
+            name='test_supervisor_name',
+            lastname='test_supervisor_lastname',
+            email='test_supervisor_email',
+            phone='test_supervisor_phone',
+            mevodad=False,
+            covid=True,
+            role=0)
+        c = Client()
+        response = c.post('', {'username': 'supervisor', 'password': '123456'})
+        response = self.client.get('http://127.0.0.1:8000/SupervisorHome')
+        self.assertEqual(response.status_code, 301)  # because of redirect
+
+
+class UserTestStory5(TestCase):
+    def test_page_loads_properly(self):
+        self.supervisor = User.objects.create_user(
+            username='supervisor',
+            password='123456',
+            name='test_supervisor_name',
+            lastname='test_supervisor_lastname',
+            email='test_supervisor_email',
+            phone='test_supervisor_phone',
+            mevodad=False,
+            covid=True,
+            role=0)
+        c = Client()
+        response = c.post('', {'username': 'supervisor', 'password': '123456'})
+        response = self.client.get('http://127.0.0.1:8000/SupervisorHome')
+        self.assertEqual(response.status_code, 301)  # because of redirect
+
+#integration
+class UserTestStory21(TestCase):
+    def test_contact_created_loads_properly(self):
+        self.user = User.objects.create_user(
+            username='kidgarden',
+            password='123456',
+            name='test_kidgarden_name',
+            lastname='test_kidgarden_lastname',
+            email='test_kidgarden_email',
+            phone='test_kidgarden_phone',
+            mevodad=False,
+            covid=True,
+            role=2)
+        self.star = Star.objects.create(user=self.user)
+        self.assertEqual(self.star.id, 1)
+
+    def test_contact_deleted_loads_properly(self):
+        self.user = User.objects.create_user(
+            username='kidgarden',
+            password='123456',
+            name='test_kidgarden_name',
+            lastname='test_kidgarden_lastname',
+            email='test_kidgarden_email',
+            phone='test_kidgarden_phone',
+            mevodad=False,
+            covid=True,
+            role=2)
+        self.star = Star.objects.create(user=self.user)
+        starid = self.star.id
+        self.star.delete()
+        star_exist = Star.objects.filter(pk=starid)
+        self.assertEqual(len(star_exist), 0)
