@@ -5,15 +5,14 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db import models
 import random
-from django.db.models import Sum,Avg
+from django.db.models import Sum, Avg
 from atlasapp.forms import AddUserForm, AddMissionForm, AddItemForm, AddComplainForm, AddMessageForm, \
     AddMessageForm_to_parents, Healthform
 from atlasapp.models import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
-
-
+from django.contrib.auth.hashers import make_password
 
 @login_required
 def home(request):
@@ -128,7 +127,10 @@ def delete_user(request, part_id=None):
 def createUser(request):
     form = AddUserForm(request.POST or None)
     if form.is_valid():
-        form.save()
+        obj = form.save(commit=False)
+        password = obj.password
+        obj.password = make_password(password)
+        obj.save()
         return redirect('sManageUsers')
     else:
         form = AddUserForm()
@@ -181,9 +183,17 @@ def gManageUsers(request):
 
 
 def create_child(request):
+    data = request.POST
+    data._mutable = True
+    data['role'] = 2
+    data._mutable = False
     form = AddUserForm(request.POST or None)
     if form.is_valid():
-        form.save()
+        obj = form.save(commit=False)
+        password = obj.password
+        obj.password = make_password(password)
+        obj.role = 2
+        obj.save()
         return redirect('gManageUsers')
     else:
         form = AddUserForm()
@@ -314,17 +324,20 @@ def end_color_game(request):
     game.save()
     return JsonResponse(data={}, status=200)
 
+
 @login_required
 def sComplainpage_view(request):
     complains = Complain.objects.all()
     context = {'complains': complains}
     return render(request, 'atlasapp/sComplainpage.html', context)
 
+
 def update_complain(request, part_id):
     complain = Complain.objects.get(id=part_id)
     complain.done = True
     complain.save()
     return redirect('sComplainpage')
+
 
 def createcomplain(request):
     form = AddComplainForm(request.POST or None)
@@ -334,18 +347,20 @@ def createcomplain(request):
         return redirect('childhome')
     else:
         form = AddComplainForm()
-    return render(request, 'atlasapp/addcomplain.html', {'form': form, 'user':user})
+    return render(request, 'atlasapp/addcomplain.html', {'form': form, 'user': user})
+
 
 @login_required
 def reports(request):
     user = User.objects.get(pk=request.user.id)
     users = User.objects.filter(gan_id=user.gan.id)
-    data =[]
+    data = []
     for u in users:
         steps = Game.objects.filter(user=u).aggregate(total_steps=Avg('steps'))['total_steps']
-        if  not steps:
-           steps=0
-        data.append({'name':u.name+''+u.lastname,'gan':u.gan.name,'games':len(Game.objects.filter(user=u)),'steps':round(steps,0),'level':round(steps,0)+1})
+        if not steps:
+            steps = 0
+        data.append({'name': u.name + '' + u.lastname, 'gan': u.gan.name, 'games': len(Game.objects.filter(user=u)),
+                     'steps': round(steps, 0), 'level': round(steps, 0) + 1})
     return render(request, 'atlasapp/gannet_reports.html', {'data': data})
 
 
@@ -353,6 +368,7 @@ def reports(request):
 def messages2(request):
     messages = Message.objects.all()
     return render(request, 'atlasapp/supervisor_messages.html', {'messages': messages})
+
 
 @login_required
 def add_messages(request):
@@ -368,17 +384,18 @@ def add_messages(request):
 
 def capsules_view(request):
     user = User.objects.get(pk=request.user.id)
-    users = User.objects.filter(gan_id = user.gan.id,role=2)
-    capsule1= users[0 : round(len(users)/2)]
-    capsule2=users[round(len(users)/2) : len(users)]
-    context = {'capsule1': capsule1, 'capsule2':capsule2}
+    users = User.objects.filter(gan_id=user.gan.id, role=2)
+    capsule1 = users[0: round(len(users) / 2)]
+    capsule2 = users[round(len(users) / 2): len(users)]
+    context = {'capsule1': capsule1, 'capsule2': capsule2}
     return render(request, 'atlasapp/create_capsules.html', context)
+
 
 def send_emails(request):
     user = User.objects.get(pk=request.user.id)
-    users = User.objects.filter(gan_id = user.gan.id,role=2)
-    capsule1= users[0 : round(len(users)/2)]
-    capsule2=users[round(len(users)/2) : len(users)]
+    users = User.objects.filter(gan_id=user.gan.id, role=2)
+    capsule1 = users[0: round(len(users) / 2)]
+    capsule2 = users[round(len(users) / 2): len(users)]
     for child in capsule1:
         send_mail(
             'חלוקת קפסולות בגן',
@@ -402,9 +419,10 @@ def send_emails(request):
 @login_required
 def gBidudim(request):
     user = User.objects.get(pk=request.user.id)
-    users = User.objects.filter(gan_id = user.gan.id, role=2)
+    users = User.objects.filter(gan_id=user.gan.id, role=2)
     context = {'users': users}
     return render(request, 'atlasapp/gBidudim.html', context)
+
 
 def contact_page(request):
     contact = Contact.objects.all()
@@ -421,7 +439,7 @@ def messages_to_parents(request):
         return redirect('messages_to_parents')
     else:
         form = AddMessageForm_to_parents()
-    return render(request, 'atlasapp/gManageMessages.html', {'messages': messages , 'form' : form})
+    return render(request, 'atlasapp/gManageMessages.html', {'messages': messages, 'form': form})
 
 
 def gannet_create_complain(request):
@@ -440,50 +458,53 @@ def star_page(request):
     user = User.objects.get(pk=request.user.id)
     users = User.objects.filter(gan_id=user.gan.id, role=2)
     temp = users[0]
-    tempsteps=Game.objects.filter(user=users[0]).aggregate(total_steps=Avg('steps'))['total_steps']
+    tempsteps = Game.objects.filter(user=users[0]).aggregate(total_steps=Avg('steps'))['total_steps']
     for u in users:
         if u != temp:
-         steps = Game.objects.filter(user=u).aggregate(total_steps=Avg('steps'))['total_steps']
-         if round(steps) < round(tempsteps):
-             temp=u
-             tempsteps=steps
+            steps = Game.objects.filter(user=u).aggregate(total_steps=Avg('steps'))['total_steps']
+            if round(steps) < round(tempsteps):
+                temp = u
+                tempsteps = steps
 
     star = temp
-    context = {'stars': stars,'star':star}
+    context = {'stars': stars, 'star': star}
     return render(request, 'atlasapp/star.html', context)
+
 
 def pick_star(request):
     user = User.objects.get(pk=request.GET.get("user_id"))
     star = Star.objects.create(user_id=user.id)
     return JsonResponse(data={}, status=200)
 
+
 @login_required
 def health(request):
     today = datetime.date.today()
-    heal = Health.objects.filter(created_at__lt = today)
+    heal = Health.objects.filter(created_at__lt=today)
     context = {'heal': heal}
     return render(request, 'atlasapp/ghealth.html', context)
 
 
 @login_required
-def myhealth(request,user_id):
-    user= get_object_or_404(User,pk=user_id)
+def myhealth(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
     health = Health.objects.filter(user=user)
     form = Healthform(request.POST or None)
     if form.is_valid():
-        obj=form.save(commit=False)
+        obj = form.save(commit=False)
         obj.user = user
         obj.save()
         return HttpResponseRedirect('/myhealth/%d' % user.id)
     else:
         form = Healthform()
-    return render(request, 'atlasapp/chealth.html', {'heal': health , 'form' : form})
+    return render(request, 'atlasapp/chealth.html', {'heal': health, 'form': form})
+
 
 @login_required
 def myhealthedit(request, id):
     rep = get_object_or_404(Health, id=id)
     form = Healthform(request.POST or None, instance=rep)
-    context = {'form': form,'rep':rep}
+    context = {'form': form, 'rep': rep}
     if form.is_valid():
         obj = form.save(commit=False)
         obj.user = User.objects.get(pk=request.user.id)
