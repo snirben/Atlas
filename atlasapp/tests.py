@@ -396,3 +396,46 @@ class UserTestStory9(TestCase):
         self.assertEqual(len(complaine_exist), 0)  # because of redirect
 
 
+class UserTestStory10(TestCase):
+    def test_message_created_andchanged_loads_properly(self):
+        self.gan = Gan.objects.create(name="gan")
+        self.message = Message.objects.create(message="message", gan=self.gan)
+        self.message.message = 'message-extra'
+        self.assertEqual(self.message.message, "message-extra")
+
+    def test_message_deleted_loads_properly(self):
+        self.gan = Gan.objects.create(name="gan")
+        self.message = Message.objects.create(message="message", gan=self.gan)
+        messageid = self.message.id
+        self.message.delete()
+        message_exist = Message.objects.filter(pk=messageid)
+        self.assertEqual(len(message_exist), 0)
+class UserTestStory38(TestCase):
+    def test_check_pull_messages_with_filter_work(self):
+        self.gan = Gan.objects.create(name='gan1')
+        self.gan2 = Gan.objects.create(name='gan2')
+        self.message = Message_to_parents.objects.create(gan=self.gan,message='hello')
+        self.message2 = Message_to_parents.objects.create(gan=self.gan, message='hello2')
+        self.message3 = Message_to_parents.objects.create(gan=self.gan2,message='hello')
+        self.message4 = Message_to_parents.objects.create(gan=self.gan2, message='hello2')
+        self.pull_messages = Message_to_parents.objects.filter(gan=self.gan)
+        self.assertEqual(len(self.pull_messages),2)
+
+class UserTestStory18(TestCase):
+    def test_page_loads_properly(self):
+        self.user = User.objects.create_superuser(
+            username='kidgarden',
+            password='123456',
+            name='test_kidgarden_name',
+            lastname='test_kidgarden_lastname',
+            email='test_kidgarden_email',
+            phone='test_kidgarden_phone',
+            mevodad=False,
+            covid=True,
+            role=1)
+        response = self.client.post(reverse('login'),
+                                    {'username': 'kidgarden',
+                                     'password': '123456'})
+        self.assertEqual(response.status_code, 302)
+
+
