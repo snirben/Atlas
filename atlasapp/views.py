@@ -31,22 +31,20 @@ def loginpage(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        if user.role == 0:
+
+        if user is not None:
             login(request, user)
-            return redirect('SupervisorHome')
-        elif user.role == 1:
-            login(request, user)
-            return redirect('GannetHome')
-        elif user.role == 2:
-            login(request, user)
-            return redirect('childhome')
-        elif user is not None:
-            login(request, user)
-            return redirect('home')
+            if user.role == 0:
+                login(request, user)
+                return redirect('SupervisorHome')
+            elif user.role == 1:
+                login(request, user)
+                return redirect('GannetHome')
+            elif user.role == 2:
+                login(request, user)
+                return redirect('childhome')
         else:
-            messages.add_message(
-                request, messages.ERROR, "שם משתמש או סיסמא לא נכונים"
-            )
+            messages.add_message(request, messages.ERROR, "שם משתמש או סיסמא לא נכונים")
     context = {}
     return render(request, 'atlasapp/login.html', context)
 
@@ -352,7 +350,7 @@ def reports(request):
 
 
 @login_required
-def messages(request):
+def messages2(request):
     messages = Message.objects.all()
     return render(request, 'atlasapp/supervisor_messages.html', {'messages': messages})
 
