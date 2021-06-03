@@ -6,7 +6,7 @@
 <title>באיזה צבע</title>
 
 
-<div class="container text-center">
+<div id="hide" class="container text-center" style="display: block">
     <h1>באיזה צבע</h1>
     <h3>צעדים: <span id="steps"> 0</span></h3>
 <section id="{{ game.id }}">
@@ -14,7 +14,7 @@
 
     {% for item in items %}
     {% if forloop.first %}
-    <div id='main_img'>
+    <div id='main_img' style="display: block">
         {% else %}
         <div id='main_img' style='display:none'>
             {% endif %}
@@ -90,7 +90,7 @@
 </div>
 
 
-    <div class="container text-center" style="display: none; padding-top: 250px;">
+    <div id="done" class="container text-center" style="display: none; padding-top: 250px;">
 
         <h1 style="font-size: 4.5rem;">ברכותיי!</h1>
         <h2>הצלחת לסיים את המשחק</h2>

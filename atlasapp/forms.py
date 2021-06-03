@@ -42,7 +42,7 @@ class AddItemForm(forms.ModelForm):
 
     class Meta:
         model = Item
-        fields = ["image", "audio", "subject","gametype"]
+        fields = ["image", "audio", "subject","gametype","color"]
 
 
 class gameChoicesForm(forms.Form):
@@ -76,7 +76,7 @@ class AddMessageForm_to_parents(forms.ModelForm):
 
     class Meta:
         model = Message_to_parents
-        fields = ['message','gan']
+        fields = ['message']
 
 
 

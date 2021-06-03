@@ -7,7 +7,6 @@ var match = 0;
 const colors= document.querySelectorAll('.btn');
 const array = document.querySelectorAll('#main_img')
 const size = array.length
-console.log(size)
 function checkcolor(){
 
 var audio = "audio-" + $(this).attr('id');
@@ -16,11 +15,14 @@ $('#' + audio)[0].play();
 incstep()
 
 if($(this).attr('id') === $(this).parent().attr('id')){
-    var x = document.getElementById("main_img");
-    x.style.display = "none";
+    var x = $(this).parent().parent()
+    console.log($(this))
+    console.log(x)
+    x[0].style.display = "none";
     match+=1;
     if (match === size){
         array[index].style.display = "none";
+        $('#hide')[0].style.display = 'none';
         endgame();
         return;
     }
@@ -47,8 +49,8 @@ function endgame(){
             },
             success: function () {
               setTimeout(() => {
-                $('.container')[0].style.display = 'none';
-                $('.container')[2].style.display = 'block';
+                $('#hide')[0].style.display = 'none';
+                $('#done')[0].style.display = 'block';
               }, 1500);
             }
         });

@@ -14,6 +14,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib.auth.hashers import make_password
 
+
 @login_required
 def home(request):
     context = {}
@@ -92,7 +93,7 @@ def createMission(request):
 def games_view(request):
     items = Item.objects.all()
     context = {'missions': items}
-    return render(request, 'atlasapp\gManageGames.html', context)
+    return render(request, 'atlasapp/gmanagegames.html', context)
 
 
 def delete_item(request, part_id=None):
@@ -224,9 +225,10 @@ def edit_child(request, id):
 
 
 def missions_view_gannet(request):
-    missions = Mission.objects.all()
+    user = User.objects.get(pk=request.user.id)
+    missions = Mission.objects.filter(gan__id=user.gan.id)
     context = {'missions': missions}
-    return render(request, 'atlasapp\gManageMissions.html', context)
+    return render(request, 'atlasapp/gManageMissions.html', context)
 
 
 def get_mission_done(request, part_id=None):
@@ -353,13 +355,13 @@ def createcomplain(request):
 @login_required
 def reports(request):
     user = User.objects.get(pk=request.user.id)
-    users = User.objects.filter(gan_id=user.gan.id)
+    users = User.objects.filter(gan_id=user.gan.id,role=2)
     data = []
     for u in users:
         steps = Game.objects.filter(user=u).aggregate(total_steps=Avg('steps'))['total_steps']
         if not steps:
             steps = 0
-        data.append({'name': u.name + '' + u.lastname, 'gan': u.gan.name, 'games': len(Game.objects.filter(user=u)),
+        data.append({'name': u.name + ' ' + u.lastname, 'gan': u.gan.name, 'games': len(Game.objects.filter(user=u)),
                      'steps': round(steps, 0), 'level': round(steps, 0) + 1})
     return render(request, 'atlasapp/gannet_reports.html', {'data': data})
 
@@ -419,7 +421,7 @@ def send_emails(request):
 @login_required
 def gBidudim(request):
     user = User.objects.get(pk=request.user.id)
-    users = User.objects.filter(gan_id=user.gan.id, role=2)
+    users = User.objects.filter(gan_id=user.gan.id, role=2,mevodad=True)
     context = {'users': users}
     return render(request, 'atlasapp/gBidudim.html', context)
 
@@ -432,10 +434,13 @@ def contact_page(request):
 
 @login_required
 def messages_to_parents(request):
-    messages = Message_to_parents.objects.all()
+    user = User.objects.get(pk=request.user.id)
+    messages = Message_to_parents.objects.filter(gan__id=user.gan.id)
     form = AddMessageForm_to_parents(request.POST or None)
     if form.is_valid():
-        form.save()
+        obj=form.save(False)
+        obj.gan=user.gan
+        obj.save()
         return redirect('messages_to_parents')
     else:
         form = AddMessageForm_to_parents()
@@ -479,8 +484,7 @@ def pick_star(request):
 
 @login_required
 def health(request):
-    today = datetime.date.today()
-    heal = Health.objects.filter(created_at__lt=today)
+    heal = Health.objects.all()
     context = {'heal': heal}
     return render(request, 'atlasapp/ghealth.html', context)
 
@@ -509,7 +513,7 @@ def myhealthedit(request, id):
         obj = form.save(commit=False)
         obj.user = User.objects.get(pk=request.user.id)
         obj.save()
-        return render(request, 'atlasapp/ceditchild.html', context)
+        return HttpResponseRedirect('/myhealth/%d'%request.user.id)
     else:
         return render(request, 'atlasapp/ceditchild.html', context)
 

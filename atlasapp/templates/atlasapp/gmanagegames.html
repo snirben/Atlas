@@ -1,4 +1,3 @@
-
 {% extends 'atlasapp/home.html' %}
 {% load static %}
 {% block content %}
@@ -16,6 +15,7 @@
           <th  scope="col">שמע</th>
           <th  scope="col">נושא</th>
           <th  scope="col">צבע</th>
+            <th  scope="col">סוג</th>
           <th></th>
 
           <th></th>
@@ -30,9 +30,11 @@
 
                     </td>
                     <td>
-                        {{item.subject.subjectname}}
+                        {{item.subject}}
                     </td>
-
+                    <td>
+                        {{item.color}}
+                    </td>
                     <td>
                         {{item.gametype}}
                     </td>
@@ -47,10 +49,4 @@
     </table>
 </div>
 
-
-
-
-
-</body>
-</html>
 {% endblock %}
