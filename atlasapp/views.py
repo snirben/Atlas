@@ -226,7 +226,7 @@ def edit_child(request, id):
 
 def missions_view_gannet(request):
     user = User.objects.get(pk=request.user.id)
-    missions = Mission.objects.filter(gan__id=user.gan.id)
+    missions = Mission.objects.filter(gannet=user.gan.id)
     context = {'missions': missions}
     return render(request, 'atlasapp/gManageMissions.html', context)
 
@@ -427,7 +427,8 @@ def gBidudim(request):
 
 
 def contact_page(request):
-    contact = Contact.objects.all()
+    user = User.objects.get(pk=request.user.id)
+    contact = User.objects.filter(gan_id=user.gan.id, role=2)
     context = {'contact': contact}
     return render(request, 'atlasapp/contact_page.html', context)
 
@@ -465,13 +466,12 @@ def star_page(request):
     temp = users[0]
     tempsteps = Game.objects.filter(user=users[0]).aggregate(total_steps=Avg('steps'))['total_steps']
     for u in users:
-        if u != temp:
+         if u != temp:
             steps = Game.objects.filter(user=u).aggregate(total_steps=Avg('steps'))['total_steps']
-            if round(steps) < round(tempsteps):
+            if steps and (round(steps) < round(tempsteps)):
                 temp = u
                 tempsteps = steps
-
-    star = temp
+         star = temp
     context = {'stars': stars, 'star': star}
     return render(request, 'atlasapp/star.html', context)
 
