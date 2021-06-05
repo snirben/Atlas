@@ -520,7 +520,7 @@ def myhealthedit(request, id):
 
 def mymessages(request):
     user = User.objects.get(pk=request.user.id)
-    gan = Gan.objects.get(pk=user.gan.id)
+    gan = user.gan
     messages = Message_to_parents.objects.filter(gan=gan)
     context = {'messages': messages}
     return render(request, 'atlasapp/cMymessages.html', context)
