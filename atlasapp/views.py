@@ -460,8 +460,8 @@ def gannet_create_complain(request):
 
 
 def star_page(request):
-    stars = Star.objects.all()
     user = User.objects.get(pk=request.user.id)
+    stars = Star.objects.filter(user__role=2,user__gan_id=user.gan.id)
     users = User.objects.filter(gan_id=user.gan.id, role=2)
     temp = users[0]
     tempsteps = Game.objects.filter(user=users[0]).aggregate(total_steps=Avg('steps'))['total_steps']
@@ -484,7 +484,8 @@ def pick_star(request):
 
 @login_required
 def health(request):
-    heal = Health.objects.all()
+    user = User.objects.get(pk=request.user.id)
+    heal = Health.objects.filter(user__gan_id=user.gan.id,user__role=2)
     context = {'heal': heal}
     return render(request, 'atlasapp/ghealth.html', context)
 
