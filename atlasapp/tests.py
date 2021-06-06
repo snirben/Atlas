@@ -8,7 +8,7 @@ import requests
 
 
 class DbTestCase(TestCase):
-
+    # check if we have valid conecction to the db
     def dbconnection(self):
         from django.db import connections
         from django.db.utils import OperationalError
@@ -30,7 +30,7 @@ class StaticTestCase(TestCase):
 
 
 class CheckInternetConnection(TestCase):
-    # we want to check that we can pull all cdn and we have interntes
+    # we want to check that we can pull all cdn and we have internet
     def interneton(self):
         # google check
         url = "8.8.8.8"
@@ -84,6 +84,7 @@ class UserTestCreate(TestCase):
 class UserTestViews(TestCase):
 
     def test_index_loads_properly(self):
+        # checking child login pass
         self.child = User.objects.create_user(
             username='admin',
             password='123456',
@@ -107,6 +108,7 @@ class UserTestViews(TestCase):
         response = self.client.get('http://127.0.0'
                                    '.1:8000/nonepage')
         self.assertEqual(response.status_code, 404)
+
 
 class SubjectTestCreate(TestCase):
 
@@ -144,6 +146,7 @@ class SubSubjectTestCreate(TestCase):
         subSubject = SubSubject.objects.get(name="test_subSubject_name")
         self.assertEqual(subSubject.name, "test_subSubject_name")
 
+
 class ItemTestCreate(TestCase):
 
     def setUp(self):
@@ -167,10 +170,9 @@ class ItemTestCreate(TestCase):
             audio='',
         )
 
-
     def test_check_Item_is_created(self):
-         item = Item.objects.get(pk =1)
-         self.assertEqual(item.id, 1)
+        item = Item.objects.get(pk=1)
+        self.assertEqual(item.id, 1)
 
 
 class GameTestCreate(TestCase):
@@ -188,7 +190,7 @@ class GameTestCreate(TestCase):
             role=2)
 
         self.game = Game.objects.get_or_create(
-            user =User.objects.get(pk=1),
+            user=User.objects.get(pk=1),
             created_at='2021-02-20 18:00',
             steps=30,
         )
@@ -199,16 +201,31 @@ class GameTestCreate(TestCase):
         game = Game.objects.get(pk=child.id)
         self.assertEqual(game.user.username, "test_game_user")
 
+
 class testUrl(TestCase):
     def setUp(self):
-        self.urlsTest = User.objects.get_or_create(
-            nameProject='testProjectName',
-            content='test_userStoryTest_content',
-            priority='test_userStoryTest_priority',
-            assign='test_teammate_userName',
-            status='Not Done'
-        )
-        self.urlsTest[0].save()
+        self.ganenet = User.objects.create_user(
+            username='ganenet',
+            password='123456',
+            name='test_ganenet_name',
+            lastname='test_ganenet_lastname',
+            email='test_ganenet_email',
+            phone='test_ganenet_phone',
+            mevodad=False,
+            covid=True,
+            role=0)
+        self.ganenet.save()
+    def test_page_loads_properly(self):
+        c = Client()
+        response = c.post('', {'username': 'ganenet', 'password': '123456'})
+        response = self.client.get('http://127.0.0.1:8000/GannetHome')
+        self.assertEqual(response.status_code, 301) #redircet
+    def test_page_notloads_properly(self):
+        c = Client()
+        response = c.post('', {'username': 'ganenet', 'password': '123456'})
+        response = self.client.get('http://127.0.0.1:8000/GanentHome')
+        self.assertEqual(response.status_code, 404)
+
 
 class UserTestStory4(TestCase):
     def test_page_loads_properly(self):
@@ -230,24 +247,25 @@ class UserTestStory4(TestCase):
 
 class UserTestStory5(TestCase):
     def test_page_loads_properly(self):
-        self.supervisor = User.objects.create_user(
-            username='supervisor',
+        self.ganenet = User.objects.create_user(
+            username='ganenet',
             password='123456',
-            name='test_supervisor_name',
-            lastname='test_supervisor_lastname',
-            email='test_supervisor_email',
-            phone='test_supervisor_phone',
+            name='test_ganenet_name',
+            lastname='test_ganenet_lastname',
+            email='test_ganenet_email',
+            phone='test_ganenet_phone',
             mevodad=False,
             covid=True,
             role=0)
         c = Client()
-        response = c.post('', {'username': 'supervisor', 'password': '123456'})
-        response = self.client.get('http://127.0.0.1:8000/SupervisorHome')
+        response = c.post('', {'username': 'ganenet', 'password': '123456'})
+        response = self.client.get('http://127.0.0.1:8000/GannetHome')
         self.assertEqual(response.status_code, 301)  # because of redirect
 
-#integration
+
+# integration
 class UserTestStory21(TestCase):
-    def test_contact_created_loads_properly(self):
+    def test_star_created_loads_properly(self):
         self.user = User.objects.create_user(
             username='kidgarden',
             password='123456',
@@ -261,7 +279,7 @@ class UserTestStory21(TestCase):
         self.star = Star.objects.create(user=self.user)
         self.assertEqual(self.star.id, 1)
 
-    def test_contact_deleted_loads_properly(self):
+    def test_star_deleted_loads_properly(self):
         self.user = User.objects.create_user(
             username='kidgarden',
             password='123456',
@@ -279,8 +297,6 @@ class UserTestStory21(TestCase):
         self.assertEqual(len(star_exist), 0)
 
 
-
-
 # Integrationtest
 class UserTestStory19(TestCase):
     def test_contact_created_andchanged_loads_properly(self):
@@ -294,7 +310,7 @@ class UserTestStory19(TestCase):
             mevodad=False,
             covid=True,
             role=2)
-        self.contact = Contact.objects.create(parentname="moshe", phone="050123123",child=self.user)
+        self.contact = Contact.objects.create(parentname="moshe", phone="050123123", child=self.user)
         self.contact.phone = '050111222'
         self.assertEqual(self.contact.phone, "050111222")
 
@@ -309,7 +325,7 @@ class UserTestStory19(TestCase):
             mevodad=False,
             covid=True,
             role=1)
-        self.contact = Contact.objects.create(parentname="moshe", phone="050123123",child=self.user)
+        self.contact = Contact.objects.create(parentname="moshe", phone="050123123", child=self.user)
         contactid = self.contact.id
         self.contact.delete()
         contact_exist = Contact.objects.filter(pk=contactid)
@@ -327,7 +343,9 @@ class UserTestStory19(TestCase):
             covid=True,
             role=1)
         self.contact = Contact.objects.create(parentname="moshe", phone="050123123", child=self.user)
-        self.assertEqual(self.contact.parentname,"moshe")
+        self.assertEqual(self.contact.parentname, "moshe")
+
+
 class UserTestStory16(TestCase):
 
     def test_page_loads_properly(self):
@@ -345,6 +363,7 @@ class UserTestStory16(TestCase):
         response = c.post('', {'username': 'kidgarden', 'password': '123456'})
         response = self.client.get('http://127.0.0.1:8000/g_add_complain')
         self.assertEqual(response.status_code, 301)
+
     def test_page_notloads_properly(self):
         self.user = User.objects.create_user(
             username='kidgarden',
@@ -361,7 +380,8 @@ class UserTestStory16(TestCase):
         response = self.client.get('http://127.0.0.1:8000/g_add_complain2')
         self.assertEqual(response.status_code, 404)
 
-#Integrationtest
+
+# Integrationtest
 class UserTestStory9(TestCase):
     def test_complaine_created_loads_properly(self):
         self.child = User.objects.create_user(
@@ -374,9 +394,9 @@ class UserTestStory9(TestCase):
             mevodad=False,
             covid=True,
             role=2)
-        self.complaine = Complain.objects.create(text="mission", user=self.child)
+        self.complaine = Complain.objects.create(text="complain", user=self.child)
 
-        self.assertEqual(self.complaine.text, "mission")
+        self.assertEqual(self.complaine.text, "complain")
 
     def test_complaine_deleted_loads_properly(self):
         self.child = User.objects.create_user(
@@ -389,7 +409,7 @@ class UserTestStory9(TestCase):
             mevodad=False,
             covid=True,
             role=2)
-        self.complaine = Complain.objects.create(text="mission", user=self.child)
+        self.complaine = Complain.objects.create(text="complain", user=self.child)
         complaineid = self.complaine.id
         self.complaine.delete()
         complaine_exist = Complain.objects.filter(pk=complaineid)
@@ -410,16 +430,19 @@ class UserTestStory10(TestCase):
         self.message.delete()
         message_exist = Message.objects.filter(pk=messageid)
         self.assertEqual(len(message_exist), 0)
+
+
 class UserTestStory38(TestCase):
     def test_check_pull_messages_with_filter_work(self):
         self.gan = Gan.objects.create(name='gan1')
         self.gan2 = Gan.objects.create(name='gan2')
-        self.message = Message_to_parents.objects.create(gan=self.gan,message='hello')
+        self.message = Message_to_parents.objects.create(gan=self.gan, message='hello')
         self.message2 = Message_to_parents.objects.create(gan=self.gan, message='hello2')
-        self.message3 = Message_to_parents.objects.create(gan=self.gan2,message='hello')
+        self.message3 = Message_to_parents.objects.create(gan=self.gan2, message='hello')
         self.message4 = Message_to_parents.objects.create(gan=self.gan2, message='hello2')
         self.pull_messages = Message_to_parents.objects.filter(gan=self.gan)
-        self.assertEqual(len(self.pull_messages),2)
+        self.assertEqual(len(self.pull_messages), 2)
+
 
 class UserTestStory18(TestCase):
     def test_page_loads_properly(self):
@@ -438,8 +461,7 @@ class UserTestStory18(TestCase):
                                      'password': '123456'})
         self.assertEqual(response.status_code, 302)
 
-
-
+#intergration
 class UserTestStory22(TestCase):
     def test_contact_created_loads_properly(self):
         self.user = User.objects.create_user(
@@ -471,6 +493,8 @@ class UserTestStory22(TestCase):
         self.star.delete()
         star_exist = Star.objects.filter(pk=starid)
         self.assertEqual(len(star_exist), 0)
+
+
 class UserTestStory12(TestCase):
     def test_page_loads_properly(self):
         self.user = User.objects.create_user(
@@ -487,13 +511,17 @@ class UserTestStory12(TestCase):
         response = c.post('', {'username': 'kidgarden', 'password': '123456'})
         response = self.client.get('http://127.0.0.1:8000/reports')
         self.assertEqual(response.status_code, 301)
+
+
 class UserTestStory24(TestCase):
     def test_check_pull_messages_work(self):
         self.gan = Gan.objects.create(name='gan1')
-        self.message = Message.objects.create(gan=self.gan,message='hello')
+        self.message = Message.objects.create(gan=self.gan, message='hello')
         self.message2 = Message.objects.create(gan=self.gan, message='hello2')
         self.pull_messages = Message.objects.all()
-        self.assertEqual(len(self.pull_messages),2)
+        self.assertEqual(len(self.pull_messages), 2)
+
+#intergration
 class UserTestStory39(TestCase):
 
     def test_message_created_andchanged_loads_properly(self):
@@ -508,7 +536,7 @@ class UserTestStory39(TestCase):
             covid=True,
             role=2)
         self.health = Health.objects.create(user=self.user, heat=38)
-        self.obj= Health.objects.get(pk=1)
+        self.obj = Health.objects.get(pk=1)
         self.obj.heat = "39"
         self.assertEqual(self.obj.heat, "39")
 
@@ -524,7 +552,7 @@ class UserTestStory39(TestCase):
             covid=True,
             role=2)
         self.health = Health.objects.create(user=self.user, heat=38)
-        self.obj= Health.objects.get(pk=1)
+        self.obj = Health.objects.get(pk=1)
         objid = self.obj.id
         self.obj.delete()
         obj_exist = Health.objects.filter(pk=objid).exists()
