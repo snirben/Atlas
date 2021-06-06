@@ -57,7 +57,7 @@ def SupervisorHome(request):
 
 
 def GannetHome(request):
-    messages = Message.objects.filter(gan=request.user.gan);
+    messages = Message.objects.filter(gan=request.user.gan)
     context = {'messages': messages}
     return render(request, 'atlasapp/GannetHome.html', context)
 
